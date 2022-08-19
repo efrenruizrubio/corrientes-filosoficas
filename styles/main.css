@@ -1,0 +1,153 @@
+:root {
+	--primary-green-color: #60ffd9;
+	--secondary-green-color: #009076;
+	--primary-background-color: #081426;
+	--secondary-background-color: #0e1b33;
+	--primary-blue-color: #b0cdf1;
+	--secondary-blue-color: #6994c9;
+	--secondary-grey-color: #a9a297;
+	--primary-border-color: #1c2a43;
+	--secondary-border-color: #41629b;
+}
+
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+html {
+	font-size: 62.5%;
+}
+
+body {
+	font-size: 1.6rem;
+	background-color: var(--primary-background-color);
+	color: var(--secondary-grey-color);
+}
+
+.main {
+	width: 100%;
+	min-width: 320px;
+}
+
+.header {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	height: 75px;
+}
+
+.header__logo {
+	width: 200px;
+	height: auto;
+}
+
+.main {
+	width: 100%;
+	min-width: 320px;
+	height: auto;
+	display: flex;
+	flex-direction: column;
+}
+
+.movements__container {
+	width: 100%;
+	min-width: 320px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.movements__container__item {
+	margin: 1rem 0;
+	width: 90%;
+	min-width: 288px;
+	min-height: 100px;
+	height: auto;
+	/* padding: 2rem; */
+	border: 1px solid var(--secondary-border-color);
+	border-radius: 15px;
+}
+
+.movements__container__item__text {
+	text-align: justify;
+}
+
+.concepts__container {
+	width: 100%;
+	min-width: 320px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.concepts__container__item {
+	margin: 1rem 0;
+	width: 90%;
+	min-width: 288px;
+	height: auto;
+	padding: 2rem;
+	border: 1px solid var(--secondary-border-color);
+	border-radius: 15px;
+}
+
+.concepts__container__item__text {
+	text-align: justify;
+}
+
+.images__container {
+	width: 100%;
+	min-width: 320px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.images__container__item {
+	margin: 1rem 0;
+	width: 90%;
+	min-width: 288px;
+	height: auto;
+	padding: 2rem;
+	border: 1px solid var(--secondary-border-color);
+	border-radius: 15px;
+}
+
+.images__container__item__text {
+	text-align: justify;
+}
+
+/* .images__container__item__img {
+}
+ */
+.movements__title {
+	color: var(--primary-blue-color);
+}
+
+.footer {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 2rem;
+}
+
+.footer-top__text {
+	color: var(--primary-blue-color);
+	font-size: 1.7rem;
+}
+
+.footer-top__name {
+	color: var(--primary-green-color);
+}
+
+.footer-bottom {
+	display: flex;
+	gap: 3rem;
+}
+
+.footer-bottom__img {
+	width: 32px;
+	height: 32px;
+}
