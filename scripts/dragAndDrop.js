@@ -69,16 +69,29 @@ const shuffleArray = (arr) => {
 const createElements = () => {
 	movements.forEach((movement) => {
 		const itemContainer = document.createElement("div");
+		const innerItemContainer = document.createElement("div");
+
 		itemContainer.classList.add("movements__container__item");
+		innerItemContainer.classList.add("movements__container__item__container");
 
 		const title = document.createElement("h3");
+		const conceptSubtitle = document.createElement("h4");
+		const imageSubtitle = document.createElement("h4");
+
 		title.classList.add("movements__title");
 		title.innerText = movement.name;
+
+		conceptSubtitle.classList.add("movements__subtitle");
+		conceptSubtitle.innerText = "Concept";
+		imageSubtitle.classList.add("movements__subtitle");
+		imageSubtitle.innerText = "Image";
+
+		innerItemContainer.append(conceptSubtitle, imageSubtitle);
 
 		conceptsArray.push(movement.concept);
 		imagesArray.push(movement.image);
 
-		itemContainer.append(title);
+		itemContainer.append(title, innerItemContainer);
 		movementsContainer.append(itemContainer);
 	});
 
