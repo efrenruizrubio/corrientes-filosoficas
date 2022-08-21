@@ -70,9 +70,13 @@ const createElements = () => {
 	movements.forEach((movement) => {
 		const itemContainer = document.createElement("div");
 		const innerItemContainer = document.createElement("div");
+		const innerConceptsContainer = document.createElement("div");
+		const innerImagesContainer = document.createElement("div");
 
 		itemContainer.classList.add("movements__container__item");
 		innerItemContainer.classList.add("movements__container__item__container");
+		innerConceptsContainer.classList.add("movements__container__item__drop");
+		innerImagesContainer.classList.add("movements__container__item__drop");
 
 		const title = document.createElement("h3");
 		const conceptSubtitle = document.createElement("h4");
@@ -81,12 +85,17 @@ const createElements = () => {
 		title.classList.add("movements__title");
 		title.innerText = movement.name;
 
-		conceptSubtitle.classList.add("movements__subtitle");
+		conceptSubtitle.classList.add("movements__subtitle", "concept__subtitle");
 		conceptSubtitle.innerText = "Concept";
-		imageSubtitle.classList.add("movements__subtitle");
+		imageSubtitle.classList.add("movements__subtitle", "image__subtitle");
 		imageSubtitle.innerText = "Image";
 
-		innerItemContainer.append(conceptSubtitle, imageSubtitle);
+		innerItemContainer.append(
+			conceptSubtitle,
+			imageSubtitle,
+			innerConceptsContainer,
+			innerImagesContainer,
+		);
 
 		conceptsArray.push(movement.concept);
 		imagesArray.push(movement.image);
@@ -135,11 +144,6 @@ const dragStartHandler = (e) => {
 	e.dataTransfer.dropEffect = "move";
 };
 
-const dragStartImageHandler = (e) => {
-	e.dataTransfer.setData("text/plain", e.target.id);
-	e.dataTransfer.dropEffect = "move";
-};
-
 const dragOverHandler = (e) => {
 	e.preventDefault();
 	e.dataTransfer.dropEffect = "move";
@@ -147,35 +151,39 @@ const dragOverHandler = (e) => {
 
 const dropHandler = (e) => {
 	e.preventDefault();
+
 	const data = e.dataTransfer.getData("text/plain");
 	const element = document.getElementById(data);
-
+	console.log(element.nodeName === "IMG" ? "image" : "not image");
 	const conceptsContainer = document.getElementById("concepts");
 	const imagesContainer = document.getElementById("images");
 
 	const conceptId = document.getElementById(`concept-container-${data}`);
 	const imageId = document.getElementById(`image-container-${data}`);
 
-	e.target.append(element);
+	e.target === element ? null : e.target.append(element);
 
 	conceptId
 		? conceptsContainer.removeChild(conceptId)
-		: imagesContainer.removeChild(imageId);
+		: imageId
+		? imagesContainer.removeChild(imageId)
+		: null;
 };
 
 const handleEvents = () => {
 	const itemContainer = document.querySelectorAll(
-		".movements__container__item",
+		".movements__container__item__drop",
 	);
 	const concept = document.querySelectorAll(".concepts__container__item__text");
 	const image = document.querySelectorAll(".images__container__item");
 
-	for (let i = 0; i < itemContainer.length; i++) {
-		itemContainer[i].addEventListener("dragover", dragOverHandler);
-		itemContainer[i].addEventListener("drop", dropHandler);
-
+	itemContainer.forEach((element) => {
+		element.addEventListener("dragover", dragOverHandler);
+		element.addEventListener("drop", dropHandler);
+	});
+	for (let i = 0; i < concept.length; i++) {
 		concept[i].addEventListener("dragstart", dragStartHandler);
-		image[i].addEventListener("dragstart", dragStartImageHandler);
+		image[i].addEventListener("dragstart", dragStartHandler);
 	}
 };
 
