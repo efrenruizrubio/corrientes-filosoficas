@@ -8,7 +8,7 @@ const movements = [
 		},
 		image: {
 			src: "https://th.bing.com/th/id/OIP.wO290Jy9XuTQhBSdZmgz3gHaE8?w=233&h=180&c=7&r=0&o=5&pid=1.7",
-			id: "img-1",
+			id: "image-1",
 			className: "images__container__item__img",
 			alt: "imagen 1",
 		},
@@ -22,7 +22,7 @@ const movements = [
 		},
 		image: {
 			src: "https://th.bing.com/th/id/OIP.wO290Jy9XuTQhBSdZmgz3gHaE8?w=233&h=180&c=7&r=0&o=5&pid=1.7",
-			id: "img-2",
+			id: "image-2",
 			className: "images__container__item__img",
 			alt: "imagen 2",
 		},
@@ -36,7 +36,7 @@ const movements = [
 		},
 		image: {
 			src: "https://th.bing.com/th/id/OIP.wO290Jy9XuTQhBSdZmgz3gHaE8?w=233&h=180&c=7&r=0&o=5&pid=1.7",
-			id: "img-3",
+			id: "image-3",
 			className: "images__container__item__img",
 			alt: "imagen 3",
 		},
@@ -50,7 +50,7 @@ const movements = [
 		},
 		image: {
 			src: "https://th.bing.com/th/id/OIP.wO290Jy9XuTQhBSdZmgz3gHaE8?w=233&h=180&c=7&r=0&o=5&pid=1.7",
-			id: "img-4",
+			id: "image-4",
 			className: "images__container__item__img",
 			alt: "imagen 4",
 		},
@@ -64,7 +64,7 @@ const movements = [
 		},
 		image: {
 			src: "https://th.bing.com/th/id/OIP.wO290Jy9XuTQhBSdZmgz3gHaE8?w=233&h=180&c=7&r=0&o=5&pid=1.7",
-			id: "img-5",
+			id: "image-5",
 			className: "images__container__item__img",
 			alt: "imagen 5",
 		},
@@ -78,7 +78,7 @@ const movements = [
 		},
 		image: {
 			src: "https://th.bing.com/th/id/OIP.wO290Jy9XuTQhBSdZmgz3gHaE8?w=233&h=180&c=7&r=0&o=5&pid=1.7",
-			id: "img-6",
+			id: "image-6",
 			className: "images__container__item__img",
 			alt: "imagen 6",
 		},
@@ -105,8 +105,14 @@ const createElements = () => {
 
 		itemContainer.classList.add("movements__container__item");
 		innerItemContainer.classList.add("movements__container__item__container");
-		innerConceptsContainer.classList.add("movements__container__item__drop");
-		innerImagesContainer.classList.add("movements__container__item__drop");
+		innerConceptsContainer.classList.add(
+			"movements__container__item__drop",
+			"movements__container__item__drop__concept",
+		);
+		innerImagesContainer.classList.add(
+			"movements__container__item__drop",
+			"movements__container__item__drop__image",
+		);
 
 		const title = document.createElement("h3");
 		const conceptSubtitle = document.createElement("h4");
@@ -169,13 +175,14 @@ const createElements = () => {
 	handleEvents();
 };
 
+let startingDragTarget;
+
 const dragStart = (e) => {
+	startingDragTarget = e.target;
 	e.dataTransfer.setData("text/plain", e.target.id);
 	e.dataTransfer.dropEffect = "move";
 	e.target.classList.add("item-hold");
 	setTimeout(() => e.target.classList.add("item-invisible"), 0);
-	console.log(e.dataTransfer.getData("text/plain"));
-	console.log(e.target);
 };
 
 const dragEnd = (e) => {
@@ -187,9 +194,11 @@ const dragEnd = (e) => {
 };
 
 const dragOver = (e) => {
-	if (!e.target.firstChild) {
+	const className = e.target.classList[1].split("__").slice(-1)[0];
+	console.log(startingDragTarget.id.split("-")[0]);
+	if (!e.target.firstChild && className === startingDragTarget.id.split("-")[0])
 		e.preventDefault();
-	} else {
+	else {
 		e.target.classList.remove("item-hovered");
 	}
 };
@@ -210,11 +219,10 @@ const dragDrop = (e) => {
 	e.target.classList.remove("item-hovered");
 	const data = e.dataTransfer.getData("text/plain");
 
-	e.target.append(document.getElementById(data));
-
 	const conceptId = document.getElementById(`concept-container-${data}`);
 	const imageId = document.getElementById(`image-container-${data}`);
 
+	e.target.append(document.getElementById(data));
 	conceptId
 		? conceptsContainer.removeChild(conceptId)
 		: imageId
@@ -223,9 +231,14 @@ const dragDrop = (e) => {
 };
 
 const handleEvents = () => {
-	const itemContainer = document.querySelectorAll(
-		".movements__container__item__drop",
+	const conceptsContainer = document.querySelectorAll(
+		".movements__container__item__drop__concept",
 	);
+
+	const imagesContainer = document.querySelectorAll(
+		".movements__container__item__drop__image",
+	);
+
 	const concept = document.querySelectorAll(".concepts__container__item__text");
 	const image = document.querySelectorAll(".images__container__item__img");
 
@@ -235,12 +248,17 @@ const handleEvents = () => {
 		image[i].addEventListener("dragstart", dragStart);
 		image[i].addEventListener("dragend", dragEnd);
 	}
-	itemContainer.forEach((element) => {
-		element.addEventListener("dragover", dragOver);
-		element.addEventListener("dragenter", dragEnter);
-		element.addEventListener("dragleave", dragLeave);
-		element.addEventListener("drop", dragDrop);
-	});
+
+	for (let i = 0; i < conceptsContainer.length; i++) {
+		conceptsContainer[i].addEventListener("dragover", dragOver);
+		conceptsContainer[i].addEventListener("dragenter", dragEnter);
+		conceptsContainer[i].addEventListener("dragleave", dragLeave);
+		conceptsContainer[i].addEventListener("drop", dragDrop);
+		imagesContainer[i].addEventListener("dragover", dragOver);
+		imagesContainer[i].addEventListener("dragenter", dragEnter);
+		imagesContainer[i].addEventListener("dragleave", dragLeave);
+		imagesContainer[i].addEventListener("drop", dragDrop);
+	}
 };
 
 createElements();
