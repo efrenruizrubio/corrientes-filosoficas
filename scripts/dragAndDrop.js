@@ -194,8 +194,11 @@ const dragEnd = (e) => {
 };
 
 const dragOver = (e) => {
-	const className = e.target.classList[1].split("__").slice(-1)[0];
-	console.log(startingDragTarget.id.split("-")[0]);
+	const className =
+		e.target.nodeName === "DIV"
+			? e.target.classList[1].split("__").slice(-1)[0]
+			: undefined;
+
 	if (!e.target.firstChild && className === startingDragTarget.id.split("-")[0])
 		e.preventDefault();
 	else {
@@ -214,15 +217,16 @@ const dragLeave = (e) => {
 	e.target.classList.remove("item-hovered");
 };
 
-const dragDrop = (e) => {
+const dragDrop = (e, el) => {
 	e.preventDefault();
 	e.target.classList.remove("item-hovered");
-	const data = e.dataTransfer.getData("text/plain");
 
+	const data = e.dataTransfer.getData("text/plain");
 	const conceptId = document.getElementById(`concept-container-${data}`);
 	const imageId = document.getElementById(`image-container-${data}`);
 
 	e.target.append(document.getElementById(data));
+
 	conceptId
 		? conceptsContainer.removeChild(conceptId)
 		: imageId
@@ -247,6 +251,15 @@ const handleEvents = () => {
 		concept[i].addEventListener("dragend", dragEnd);
 		image[i].addEventListener("dragstart", dragStart);
 		image[i].addEventListener("dragend", dragEnd);
+
+		concept[i].removeEventListener("dragenter", dragEnter);
+		concept[i].removeEventListener("dragleave", dragLeave);
+		concept[i].removeEventListener("dragover", dragOver);
+		concept[i].removeEventListener("drop", dragDrop);
+		image[i].removeEventListener("dragenter", dragEnter);
+		image[i].removeEventListener("dragleave", dragLeave);
+		image[i].removeEventListener("dragover", dragOver);
+		image[i].removeEventListener("drop", dragDrop);
 	}
 
 	for (let i = 0; i < conceptsContainer.length; i++) {
