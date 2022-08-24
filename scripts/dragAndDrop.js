@@ -2,7 +2,7 @@ const movements = [
 	{
 		name: "Movement 1",
 		concept: {
-			name: "1",
+			name: "Concept 1",
 			id: "concept-1",
 			className: "concepts__container__item__text",
 		},
@@ -16,7 +16,7 @@ const movements = [
 	{
 		name: "Movement 2",
 		concept: {
-			name: "2",
+			name: "Concept 2",
 			id: "concept-2",
 			className: "concepts__container__item__text",
 		},
@@ -30,7 +30,7 @@ const movements = [
 	{
 		name: "Movement 3",
 		concept: {
-			name: "3",
+			name: "Concept 3",
 			id: "concept-3",
 			className: "concepts__container__item__text",
 		},
@@ -44,7 +44,7 @@ const movements = [
 	{
 		name: "Movement 4",
 		concept: {
-			name: "4",
+			name: "Concept 4",
 			id: "concept-4",
 			className: "concepts__container__item__text",
 		},
@@ -58,7 +58,7 @@ const movements = [
 	{
 		name: "Movement 5",
 		concept: {
-			name: "5",
+			name: "Concept 5",
 			id: "concept-5",
 			className: "concepts__container__item__text",
 		},
@@ -72,7 +72,7 @@ const movements = [
 	{
 		name: "Movement 6",
 		concept: {
-			name: "6",
+			name: "Concept 6",
 			id: "concept-6",
 			className: "concepts__container__item__text",
 		},
@@ -95,9 +95,32 @@ const imagesContainer = document.querySelector("#images");
 
 const conceptsArray = [];
 const imagesArray = [];
+const answers = [];
+const correctAnswers = [];
+
+/* 
+
+Tried to implement a stateful element in vanilla JS, it works, but not quite as
+I expected, but I think it's worth it to have it here as a comment, for the moment
+
+const useState = (defaultValue) => {
+	let value = defaultValue;
+	const getValue = () => {
+		return value;
+	}
+	const setValue = (newValue) => (value = newValue);
+	return [getValue, setValue];
+};
+
+const [disableButton, setDisableButton] = useState(true); */
+
+const submitButton = document.querySelector(".submit-button");
+const resetButton = document.querySelector(".reset-button");
+submitButton.disabled = true;
+resetButton.disabled = true;
 
 const createElements = () => {
-	movements.forEach((movement) => {
+	movements.forEach((movement, i) => {
 		const itemContainer = document.createElement("div");
 		const innerItemContainer = document.createElement("div");
 		const innerConceptsContainer = document.createElement("div");
@@ -109,11 +132,12 @@ const createElements = () => {
 			"movements__container__item__drop",
 			"movements__container__item__drop__concept",
 		);
+		innerConceptsContainer.id = `container-concept-${i + 1}`;
 		innerImagesContainer.classList.add(
 			"movements__container__item__drop",
 			"movements__container__item__drop__image",
 		);
-
+		innerImagesContainer.id = `container-image-${i + 1}`;
 		const title = document.createElement("h3");
 		const conceptSubtitle = document.createElement("h4");
 		const imageSubtitle = document.createElement("h4");
@@ -217,13 +241,16 @@ const dragLeave = (e) => {
 	e.target.classList.remove("item-hovered");
 };
 
-const dragDrop = (e, el) => {
+const dragDrop = (e) => {
 	e.preventDefault();
 	e.target.classList.remove("item-hovered");
 
 	const data = e.dataTransfer.getData("text/plain");
 	const conceptId = document.getElementById(`concept-container-${data}`);
 	const imageId = document.getElementById(`image-container-${data}`);
+
+	answers.push(data);
+	correctAnswers.push(e.target.id);
 
 	e.target.append(document.getElementById(data));
 
@@ -232,6 +259,68 @@ const dragDrop = (e, el) => {
 		: imageId
 		? imagesContainer.removeChild(imageId)
 		: null;
+
+	const elements = document.querySelectorAll(
+		".movements__container__item__drop",
+	);
+
+	const isFull = Array.from(elements).every((element) => {
+		return element.firstChild;
+	});
+
+	const hasElements = Array.from(elements).some((element) => {
+		return element.firstChild;
+	});
+
+	const submitButton = document.querySelector(".submit-button");
+	const resetButton = document.querySelector(".reset-button");
+	if (isFull) {
+		submitButton.disabled = false;
+	}
+	if (hasElements) {
+		resetButton.disabled = false;
+	}
+};
+
+const submit = () => {
+	const answerConcept = document.querySelectorAll(
+		".movements__container__item__drop__concept",
+	);
+	const answerImage = document.querySelectorAll(
+		".movements__container__item__drop__image",
+	);
+
+	for (let i = 0; i < correctAnswers.length; i++) {
+		if (answers[i] === correctAnswers[i].split("-").slice(-2).join("-")) {
+			console.log("the answers are correct");
+			if (
+				correctAnswers[i].split("-").slice(-2)[0].split("-")[0] === "concept"
+			) {
+				let conceptContainer = document.getElementById(correctAnswers[i]);
+				conceptContainer.classList.add("item-correct");
+			} else {
+				let imageContainer = document.getElementById(correctAnswers[i]);
+				imageContainer.classList.add("item-correct");
+			}
+		} else {
+			console.log("the answers are incorrect");
+			if (
+				correctAnswers[i].split("-").slice(-2)[0].split("-")[0] === "concept"
+			) {
+				let conceptContainer = document.getElementById(correctAnswers[i]);
+				conceptContainer.classList.add("item-incorrect");
+			} else {
+				let imageContainer = document.getElementById(correctAnswers[i]);
+				imageContainer.classList.add("item-incorrect");
+			}
+		}
+		let draggableElement = document.getElementById(answers[i]);
+		draggableElement.draggable = false;
+	}
+};
+
+const reset = () => {
+	window.location.reload();
 };
 
 const handleEvents = () => {
@@ -272,6 +361,11 @@ const handleEvents = () => {
 		imagesContainer[i].addEventListener("dragleave", dragLeave);
 		imagesContainer[i].addEventListener("drop", dragDrop);
 	}
+
+	const checkButton = document.querySelector(".submit-button");
+	const resetButton = document.querySelector(".reset-button");
+	checkButton.addEventListener("click", submit);
+	resetButton.addEventListener("click", reset);
 };
 
 createElements();
