@@ -278,6 +278,7 @@ const dragDrop = (e) => {
 		submitButton.disabled = false;
 	}
 	if (hasElements) {
+		Swal.fire({ title: "Hi" });
 		resetButton.disabled = false;
 	}
 };
