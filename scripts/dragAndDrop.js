@@ -222,10 +222,22 @@ const dragOver = (e) => {
 		e.target.nodeName === "DIV"
 			? e.target.classList[1].split("__").slice(-1)[0]
 			: undefined;
-
-	if (!e.target.firstChild && className === startingDragTarget.id.split("-")[0])
+	if (
+		(e.target.nodeName === "P" &&
+			startingDragTarget.nodeName === "P" &&
+			e.target !== startingDragTarget) ||
+		(e.target.nodeName === "IMG" &&
+			startingDragTarget.nodeName === "IMG" &&
+			e.target !== startingDragTarget)
+	) {
 		e.preventDefault();
-	else {
+	}
+	if (
+		!e.target.firstChild &&
+		className === startingDragTarget.id.split("-")[0]
+	) {
+		e.preventDefault();
+	} else {
 		e.target.classList.remove("item-hovered");
 	}
 };
@@ -245,14 +257,58 @@ const dragDrop = (e) => {
 	e.preventDefault();
 	e.target.classList.remove("item-hovered");
 
+	const elements = Array.from(
+		document.querySelectorAll(".movements__container__item__drop"),
+	);
+
 	const data = e.dataTransfer.getData("text/plain");
+	const element = document.getElementById(data);
 	const conceptId = document.getElementById(`concept-container-${data}`);
 	const imageId = document.getElementById(`image-container-${data}`);
 
 	answers.push(data);
 	correctAnswers.push(e.target.id);
 
-	e.target.append(document.getElementById(data));
+	const submitButton = document.querySelector(".submit-button");
+	const resetButton = document.querySelector(".reset-button");
+
+	const isFull = elements.every((element) => {
+		return element.firstChild;
+	});
+
+	const hasElements = elements.some((element) => {
+		return element.firstChild;
+	});
+
+	if (e.target.nodeName === element.nodeName) {
+		const outerElement = elements.find((el) => el.contains(element));
+		const outerElementTarget = document.getElementById(
+			`container-${e.target.id}`,
+		);
+		const elementTest = document.querySelector(`#${e.target.id}`);
+		outerElement.append(elementTest);
+		outerElementTarget.append(element);
+
+		if (e.target.nodeName === "P") {
+			const addConceptElement = document.createElement("div");
+			addConceptElement.classList.add("concepts__container__item");
+			addConceptElement.id = `concept-container-${e.target.id}`;
+			addConceptElement.append(e.target);
+			conceptsContainer.insertAdjacentElement("afterbegin", addConceptElement);
+		} else {
+			const addImageElement = document.createElement("div");
+			addImageElement.classList.add("images__container__item");
+			addImageElement.id = `image-container-${e.target.id}`;
+			addImageElement.append(e.target);
+			imagesContainer.insertAdjacentElement("afterbegin", addImageElement);
+		}
+	} else {
+		e.target.append(element);
+	}
+
+	if (hasElements) {
+		resetButton.disabled = false;
+	}
 
 	conceptId
 		? conceptsContainer.removeChild(conceptId)
@@ -260,27 +316,7 @@ const dragDrop = (e) => {
 		? imagesContainer.removeChild(imageId)
 		: null;
 
-	const elements = document.querySelectorAll(
-		".movements__container__item__drop",
-	);
-
-	const isFull = Array.from(elements).every((element) => {
-		return element.firstChild;
-	});
-
-	const hasElements = Array.from(elements).some((element) => {
-		return element.firstChild;
-	});
-
-	const submitButton = document.querySelector(".submit-button");
-	const resetButton = document.querySelector(".reset-button");
-	if (isFull) {
-		submitButton.disabled = false;
-	}
-	if (hasElements) {
-		Swal.fire({ title: "Hi" });
-		resetButton.disabled = false;
-	}
+	isFull ? (submitButton.disabled = false) : null;
 };
 
 const submit = () => {
@@ -321,6 +357,7 @@ const submit = () => {
 };
 
 const reset = () => {
+	history.scrollRestoration = "manual";
 	window.location.reload();
 };
 
