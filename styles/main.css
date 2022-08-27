@@ -134,15 +134,17 @@ body {
 }
 
 .item-correct {
-	border: 4px solid var(--secondary-green-color);
+	border: 1px solid var(--secondary-green-color);
+	border-radius: 15px;
 }
 
 .item-incorrect {
-	border: 4px solid red;
+	border: 1px solid red;
+	border-radius: 15px;
 }
 
 .item-invisible {
-	display: none;
+	visibility: hidden;
 }
 .concepts__container,
 .images__container {
@@ -165,12 +167,20 @@ body {
 }
 
 .concepts__container__item__text,
-.images__container__item__img {
+.images__container__item__inner-element {
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	height: 100px;
 	cursor: pointer;
+	border-radius: 15px;
+}
+
+.images__container__item__img {
+	display: inline;
+	z-index: -3;
+	width: 100px;
+	height: auto;
 }
 
 .footer {
@@ -186,6 +196,7 @@ body {
 }
 
 .footer-top__name {
+	text-decoration: none;
 	color: var(--primary-green-color);
 }
 

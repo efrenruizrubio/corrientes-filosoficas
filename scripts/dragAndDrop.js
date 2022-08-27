@@ -9,6 +9,7 @@ const movements = [
 		image: {
 			src: "https://th.bing.com/th/id/OIP.wO290Jy9XuTQhBSdZmgz3gHaE8?w=233&h=180&c=7&r=0&o=5&pid=1.7",
 			id: "image-1",
+			containerClassName: "images__container__item__inner-element",
 			className: "images__container__item__img",
 			alt: "imagen 1",
 		},
@@ -23,6 +24,7 @@ const movements = [
 		image: {
 			src: "https://th.bing.com/th/id/OIP.wO290Jy9XuTQhBSdZmgz3gHaE8?w=233&h=180&c=7&r=0&o=5&pid=1.7",
 			id: "image-2",
+			containerClassName: "images__container__item__inner-element",
 			className: "images__container__item__img",
 			alt: "imagen 2",
 		},
@@ -37,6 +39,7 @@ const movements = [
 		image: {
 			src: "https://th.bing.com/th/id/OIP.wO290Jy9XuTQhBSdZmgz3gHaE8?w=233&h=180&c=7&r=0&o=5&pid=1.7",
 			id: "image-3",
+			containerClassName: "images__container__item__inner-element",
 			className: "images__container__item__img",
 			alt: "imagen 3",
 		},
@@ -51,6 +54,7 @@ const movements = [
 		image: {
 			src: "https://th.bing.com/th/id/OIP.wO290Jy9XuTQhBSdZmgz3gHaE8?w=233&h=180&c=7&r=0&o=5&pid=1.7",
 			id: "image-4",
+			containerClassName: "images__container__item__inner-element",
 			className: "images__container__item__img",
 			alt: "imagen 4",
 		},
@@ -65,6 +69,7 @@ const movements = [
 		image: {
 			src: "https://th.bing.com/th/id/OIP.wO290Jy9XuTQhBSdZmgz3gHaE8?w=233&h=180&c=7&r=0&o=5&pid=1.7",
 			id: "image-5",
+			containerClassName: "images__container__item__inner-element",
 			className: "images__container__item__img",
 			alt: "imagen 5",
 		},
@@ -79,6 +84,7 @@ const movements = [
 		image: {
 			src: "https://th.bing.com/th/id/OIP.wO290Jy9XuTQhBSdZmgz3gHaE8?w=233&h=180&c=7&r=0&o=5&pid=1.7",
 			id: "image-6",
+			containerClassName: "images__container__item__inner-element",
 			className: "images__container__item__img",
 			alt: "imagen 6",
 		},
@@ -95,8 +101,6 @@ const imagesContainer = document.querySelector("#images");
 
 const conceptsArray = [];
 const imagesArray = [];
-const answers = [];
-const correctAnswers = [];
 
 /* 
 
@@ -170,6 +174,7 @@ const createElements = () => {
 	for (let i = 0; i < movements.length; i++) {
 		const conceptItemContainer = document.createElement("div");
 		const imageItemContainer = document.createElement("div");
+		const innerImageItemContainer = document.createElement("div");
 
 		conceptItemContainer.classList.add("concepts__container__item");
 		conceptItemContainer.id = `concept-container-${shuffledConcepts[i].id}`;
@@ -185,15 +190,18 @@ const createElements = () => {
 		concept.id = shuffledConcepts[i].id;
 		concept.draggable = true;
 
-		image.classList.add(shuffledImages[i].className);
 		image.src = shuffledImages[i].src;
-		image.id = shuffledImages[i].id;
 		image.alt = shuffledImages[i].alt;
-		image.draggable = true;
+		image.classList.add(shuffledImages[i].className);
+
+		innerImageItemContainer.classList.add(shuffledImages[i].containerClassName);
+		innerImageItemContainer.id = shuffledImages[i].id;
+		innerImageItemContainer.draggable = true;
+		innerImageItemContainer.append(image);
 
 		conceptItemContainer.append(concept);
 		conceptsContainer.append(conceptItemContainer);
-		imageItemContainer.append(image);
+		imageItemContainer.append(innerImageItemContainer);
 		imagesContainer.append(imageItemContainer);
 	}
 	handleEvents();
@@ -212,25 +220,20 @@ const dragStart = (e) => {
 const dragEnd = (e) => {
 	e.target.classList.remove("invisible", "hold");
 	e.target.className =
-		e.target.nodeName !== "IMG"
+		e.target.nodeName === "P"
 			? "concepts__container__item__text"
-			: "images__container__item__img";
+			: "images__container__item__inner-element";
 };
 
 const dragOver = (e) => {
-	const className =
-		e.target.nodeName === "DIV"
-			? e.target.classList[1].split("__").slice(-1)[0]
-			: undefined;
-	if (
-		(e.target.nodeName === "P" &&
-			startingDragTarget.nodeName === "P" &&
-			e.target !== startingDragTarget) ||
-		(e.target.nodeName === "IMG" &&
-			startingDragTarget.nodeName === "IMG" &&
-			e.target !== startingDragTarget) ||
-		className === startingDragTarget.id.split("-")[0]
-	) {
+	const idTarget = e.target.id.split("-").find((el) => {
+		return el === "concept" || el === "image";
+	});
+	const idElement = startingDragTarget.id.split("-").find((el) => {
+		return el === "concept" || el === "image";
+	});
+
+	if (e.target.firstChild !== startingDragTarget && idTarget === idElement) {
 		e.preventDefault();
 	} else {
 		e.target.classList.remove("item-hovered");
@@ -261,15 +264,8 @@ const dragDrop = (e) => {
 	const conceptId = document.getElementById(`concept-container-${data}`);
 	const imageId = document.getElementById(`image-container-${data}`);
 
-	answers.push(data);
-	correctAnswers.push(e.target.id);
-
 	const submitButton = document.querySelector(".submit-button");
 	const resetButton = document.querySelector(".reset-button");
-
-	const isFull = elements.every((element) => {
-		return element.firstChild;
-	});
 
 	const hasElements = elements.some((element) => {
 		return element.firstChild;
@@ -285,82 +281,87 @@ const dragDrop = (e) => {
 			document.querySelectorAll(".images__container__item"),
 		);
 		const itemContainer = conceptItemsArray.concat(imageItemsArray);
-		const childElement = document.getElementById(e.target.id);
-		const parentElement = elements.find((el) => {
-			return el.firstChild === childElement;
-		});
 
 		const isInsideItems = itemContainer.some((el) => {
 			return el.contains(element);
 		});
 
+		const childElement = document.getElementById(e.target.id);
+		const parentElement = elements.find((el) => {
+			return el.firstChild === childElement;
+		});
+
 		if (isInsideItems) {
-			console.log(childElement);
-			console.log(e.target.id);
-			console.log(element);
 			const optionElement = document.createElement("div");
-			optionElement.classList.add(
-				element.nodeName === "P"
-					? "concepts__container__item"
-					: "images__container__item",
-			);
 			optionElement.append(childElement);
+
+			if (element.nodeName === "P") {
+				optionElement.classList.add("concepts__container__item");
+				optionElement.id = `concept-container-${childElement.id}`;
+				conceptsContainer.insertAdjacentElement("afterbegin", optionElement);
+			} else {
+				optionElement.classList.add("images__container__item");
+				optionElement.id = `image-container-${childElement.id}`;
+				imagesContainer.insertAdjacentElement("afterbegin", optionElement);
+			}
 
 			parentElement.append(element);
 		} else {
-		}
+			const parentTarget = elements.find((el) => {
+				return el.firstChild === element;
+			});
 
-		/* parentElement.removeChild(childElement);
-			parentElement.append(element); */
+			const childTarget = parentTarget.firstChild;
+			parentElement.append(childTarget);
+			parentTarget.append(childElement);
+
+			answers.push(childTarget.id, childElement.id);
+			correctAnswers.push(parentTarget.id, childElement.id);
+		}
 	}
 
 	if (hasElements) {
 		resetButton.disabled = false;
 	}
 
-	/* conceptId
+	conceptId
 		? conceptsContainer.removeChild(conceptId)
 		: imageId
 		? imagesContainer.removeChild(imageId)
-		: null; */
+		: null;
+
+	const isFull = elements.every((element) => {
+		return element.firstChild;
+	});
+
 	isFull ? (submitButton.disabled = false) : null;
 };
 
 const submit = () => {
-	const answerConcept = document.querySelectorAll(
-		".movements__container__item__drop__concept",
+	const answersConcepts = Array.from(
+		document.querySelectorAll(".movements__container__item__drop__concept"),
 	);
-	const answerImage = document.querySelectorAll(
-		".movements__container__item__drop__image",
+	const answersImages = Array.from(
+		document.querySelectorAll(".movements__container__item__drop__image"),
 	);
 
-	for (let i = 0; i < correctAnswers.length; i++) {
-		if (answers[i] === correctAnswers[i].split("-").slice(-2).join("-")) {
-			console.log("the answers are correct");
-			if (
-				correctAnswers[i].split("-").slice(-2)[0].split("-")[0] === "concept"
-			) {
-				let conceptContainer = document.getElementById(correctAnswers[i]);
-				conceptContainer.classList.add("item-correct");
-			} else {
-				let imageContainer = document.getElementById(correctAnswers[i]);
-				imageContainer.classList.add("item-correct");
-			}
+	const answersArray = answersConcepts.concat(answersImages);
+
+	answersArray.forEach((el) => {
+		let id = el.id.split("-").slice(-2).join("-");
+		if (el.firstChild?.id === id) {
+			el.classList.add("item-correct");
 		} else {
-			console.log("the answers are incorrect");
-			if (
-				correctAnswers[i].split("-").slice(-2)[0].split("-")[0] === "concept"
-			) {
-				let conceptContainer = document.getElementById(correctAnswers[i]);
-				conceptContainer.classList.add("item-incorrect");
-			} else {
-				let imageContainer = document.getElementById(correctAnswers[i]);
-				imageContainer.classList.add("item-incorrect");
-			}
+			el.classList.add("item-incorrect");
 		}
-		let draggableElement = document.getElementById(answers[i]);
-		draggableElement.draggable = false;
-	}
+		el.firstChild.draggable = false;
+	});
+
+	const correctAnswers = Array.from(document.querySelectorAll(".item-correct"));
+	const wrongAnswers = Array.from(document.querySelectorAll(".item-incorrect"));
+
+	console.log(correctAnswers);
+	console.log(wrongAnswers);
 };
 
 const reset = () => {
@@ -378,7 +379,9 @@ const handleEvents = () => {
 	);
 
 	const concept = document.querySelectorAll(".concepts__container__item__text");
-	const image = document.querySelectorAll(".images__container__item__img");
+	const image = document.querySelectorAll(
+		".images__container__item__inner-element",
+	);
 
 	for (let i = 0; i < concept.length; i++) {
 		concept[i].addEventListener("dragstart", dragStart);
