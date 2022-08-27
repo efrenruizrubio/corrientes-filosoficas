@@ -228,12 +228,7 @@ const dragOver = (e) => {
 			e.target !== startingDragTarget) ||
 		(e.target.nodeName === "IMG" &&
 			startingDragTarget.nodeName === "IMG" &&
-			e.target !== startingDragTarget)
-	) {
-		e.preventDefault();
-	}
-	if (
-		!e.target.firstChild &&
+			e.target !== startingDragTarget) ||
 		className === startingDragTarget.id.split("-")[0]
 	) {
 		e.preventDefault();
@@ -280,42 +275,54 @@ const dragDrop = (e) => {
 		return element.firstChild;
 	});
 
-	if (e.target.nodeName === element.nodeName) {
-		const outerElement = elements.find((el) => el.contains(element));
-		const outerElementTarget = document.getElementById(
-			`container-${e.target.id}`,
-		);
-		const elementTest = document.querySelector(`#${e.target.id}`);
-		outerElement.append(elementTest);
-		outerElementTarget.append(element);
-
-		if (e.target.nodeName === "P") {
-			const addConceptElement = document.createElement("div");
-			addConceptElement.classList.add("concepts__container__item");
-			addConceptElement.id = `concept-container-${e.target.id}`;
-			addConceptElement.append(e.target);
-			conceptsContainer.insertAdjacentElement("afterbegin", addConceptElement);
-		} else {
-			const addImageElement = document.createElement("div");
-			addImageElement.classList.add("images__container__item");
-			addImageElement.id = `image-container-${e.target.id}`;
-			addImageElement.append(e.target);
-			imagesContainer.insertAdjacentElement("afterbegin", addImageElement);
-		}
-	} else {
+	if (!e.target.firstChild) {
 		e.target.append(element);
+	} else {
+		const conceptItemsArray = Array.from(
+			document.querySelectorAll(".concepts__container__item"),
+		);
+		const imageItemsArray = Array.from(
+			document.querySelectorAll(".images__container__item"),
+		);
+		const itemContainer = conceptItemsArray.concat(imageItemsArray);
+		const childElement = document.getElementById(e.target.id);
+		const parentElement = elements.find((el) => {
+			return el.firstChild === childElement;
+		});
+
+		const isInsideItems = itemContainer.some((el) => {
+			return el.contains(element);
+		});
+
+		if (isInsideItems) {
+			console.log(childElement);
+			console.log(e.target.id);
+			console.log(element);
+			const optionElement = document.createElement("div");
+			optionElement.classList.add(
+				element.nodeName === "P"
+					? "concepts__container__item"
+					: "images__container__item",
+			);
+			optionElement.append(childElement);
+
+			parentElement.append(element);
+		} else {
+		}
+
+		/* parentElement.removeChild(childElement);
+			parentElement.append(element); */
 	}
 
 	if (hasElements) {
 		resetButton.disabled = false;
 	}
 
-	conceptId
+	/* conceptId
 		? conceptsContainer.removeChild(conceptId)
 		: imageId
 		? imagesContainer.removeChild(imageId)
-		: null;
-
+		: null; */
 	isFull ? (submitButton.disabled = false) : null;
 };
 
