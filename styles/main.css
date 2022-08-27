@@ -28,11 +28,6 @@ body {
 	user-select: none;
 }
 
-.main {
-	width: 100%;
-	min-width: 320px;
-}
-
 .header {
 	display: flex;
 	justify-content: center;
@@ -53,6 +48,7 @@ body {
 	height: auto;
 	display: flex;
 	flex-direction: column;
+	align-items: center;
 }
 
 .movements__container {
@@ -181,6 +177,62 @@ body {
 	z-index: -3;
 	width: 100px;
 	height: auto;
+}
+
+.button {
+	margin: 1rem;
+	width: 25%;
+	padding: 1rem;
+	background: none;
+	color: var(--primary-blue-color);
+	border: 1px solid var(--primary-green-color);
+	border-radius: 10px;
+	cursor: pointer;
+}
+
+.button:hover {
+	transform: scale(1.1);
+	transition: all 0.1s;
+}
+
+.button:disabled {
+	background-color: #373535;
+	border-color: #373535;
+	color: #867f7f;
+}
+
+.button:disabled:hover {
+	transform: none;
+	cursor: default;
+	background-color: #373535;
+	border-color: #373535;
+	color: #867f7f;
+}
+
+.submit-button:hover {
+	color: var(--primary-green-color);
+}
+
+.reset-button:hover {
+	color: red;
+	border-color: red;
+}
+
+.alert__title {
+	font-size: 2.4rem !important;
+	color: var(--secondary-grey-color) !important;
+}
+.alert__text {
+	font-size: 1.6rem;
+	color: var(--secondary-blue-color) !important;
+}
+
+.alert__result--approved {
+	color: var(--secondary-green-color);
+}
+
+.alert__result--failed {
+	color: red;
 }
 
 .footer {

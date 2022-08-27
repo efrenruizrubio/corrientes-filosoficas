@@ -118,9 +118,8 @@ const useState = (defaultValue) => {
 
 const [disableButton, setDisableButton] = useState(true); */
 
-const submitButton = document.querySelector(".submit-button");
 const resetButton = document.querySelector(".reset-button");
-submitButton.disabled = true;
+
 resetButton.disabled = true;
 
 const createElements = () => {
@@ -264,12 +263,7 @@ const dragDrop = (e) => {
 	const conceptId = document.getElementById(`concept-container-${data}`);
 	const imageId = document.getElementById(`image-container-${data}`);
 
-	const submitButton = document.querySelector(".submit-button");
 	const resetButton = document.querySelector(".reset-button");
-
-	const hasElements = elements.some((element) => {
-		return element.firstChild;
-	});
 
 	if (!e.target.firstChild) {
 		e.target.append(element);
@@ -314,11 +308,12 @@ const dragDrop = (e) => {
 			const childTarget = parentTarget.firstChild;
 			parentElement.append(childTarget);
 			parentTarget.append(childElement);
-
-			answers.push(childTarget.id, childElement.id);
-			correctAnswers.push(parentTarget.id, childElement.id);
 		}
 	}
+
+	const hasElements = elements.some((element) => {
+		return element.firstChild;
+	});
 
 	if (hasElements) {
 		resetButton.disabled = false;
@@ -334,7 +329,16 @@ const dragDrop = (e) => {
 		return element.firstChild;
 	});
 
-	isFull ? (submitButton.disabled = false) : null;
+	if (isFull) {
+		if (!document.querySelector(".submit-button")) {
+			const submitButton = document.createElement("button");
+			submitButton.type = "button";
+			submitButton.classList.add("button", "submit-button");
+			submitButton.innerText = "Comprobar respuestas";
+			imagesContainer.insertAdjacentElement("afterend", submitButton);
+			submitButton.addEventListener("click", submit);
+		}
+	}
 };
 
 const submit = () => {
@@ -344,6 +348,9 @@ const submit = () => {
 	const answersImages = Array.from(
 		document.querySelectorAll(".movements__container__item__drop__image"),
 	);
+
+	const submitButton = document.querySelector(".submit-button");
+	submitButton.disabled = true;
 
 	const answersArray = answersConcepts.concat(answersImages);
 
@@ -355,13 +362,34 @@ const submit = () => {
 			el.classList.add("item-incorrect");
 		}
 		el.firstChild.draggable = false;
+		el.firstChild.style.cursor = "default";
 	});
 
 	const correctAnswers = Array.from(document.querySelectorAll(".item-correct"));
 	const wrongAnswers = Array.from(document.querySelectorAll(".item-incorrect"));
 
-	console.log(correctAnswers);
-	console.log(wrongAnswers);
+	Swal.fire({
+		title: "Resultado",
+		html: `<span class="alert__text">Obtuviste <strong class=alert__result${
+			correctAnswers.length > 6 ? "--approved" : "--failed"
+		}>${12 - wrongAnswers.length}</strong> respuesta(s) bien de 12</span>`,
+		icon:
+			correctAnswers.length === 12
+				? "success"
+				: correctAnswers.length === 0
+				? "error"
+				: "info",
+		background: "#0e1b33",
+		confirmButtonText: "Cerrar",
+		customClass: {
+			title: "alert__title",
+		},
+		padding: "2rem",
+		allowOutsideClick: false,
+		allowEscapeKey: false,
+		allowEnterKey: false,
+		stopKeydownPropagation: false,
+	});
 };
 
 const reset = () => {
@@ -386,13 +414,13 @@ const handleEvents = () => {
 	for (let i = 0; i < concept.length; i++) {
 		concept[i].addEventListener("dragstart", dragStart);
 		concept[i].addEventListener("dragend", dragEnd);
-		image[i].addEventListener("dragstart", dragStart);
-		image[i].addEventListener("dragend", dragEnd);
-
 		concept[i].removeEventListener("dragenter", dragEnter);
 		concept[i].removeEventListener("dragleave", dragLeave);
 		concept[i].removeEventListener("dragover", dragOver);
 		concept[i].removeEventListener("drop", dragDrop);
+
+		image[i].addEventListener("dragstart", dragStart);
+		image[i].addEventListener("dragend", dragEnd);
 		image[i].removeEventListener("dragenter", dragEnter);
 		image[i].removeEventListener("dragleave", dragLeave);
 		image[i].removeEventListener("dragover", dragOver);
@@ -404,15 +432,13 @@ const handleEvents = () => {
 		conceptsContainer[i].addEventListener("dragenter", dragEnter);
 		conceptsContainer[i].addEventListener("dragleave", dragLeave);
 		conceptsContainer[i].addEventListener("drop", dragDrop);
+
 		imagesContainer[i].addEventListener("dragover", dragOver);
 		imagesContainer[i].addEventListener("dragenter", dragEnter);
 		imagesContainer[i].addEventListener("dragleave", dragLeave);
 		imagesContainer[i].addEventListener("drop", dragDrop);
 	}
-
-	const checkButton = document.querySelector(".submit-button");
 	const resetButton = document.querySelector(".reset-button");
-	checkButton.addEventListener("click", submit);
 	resetButton.addEventListener("click", reset);
 };
 
