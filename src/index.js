@@ -7,7 +7,7 @@ const movements = [
 			className: "concepts__container__item__text",
 		},
 		image: {
-			src: "/therapy.jpg",
+			src: "/assets/images/therapy.jpg",
 			id: "image-1",
 			containerClassName: "images__container__item__inner-element",
 			className: "images__container__item__img",
@@ -22,7 +22,7 @@ const movements = [
 			className: "concepts__container__item__text",
 		},
 		image: {
-			src: "/therapy.jpg",
+			src: "/assets/images/therapy.jpg",
 			id: "image-2",
 			containerClassName: "images__container__item__inner-element",
 			className: "images__container__item__img",
@@ -37,7 +37,7 @@ const movements = [
 			className: "concepts__container__item__text",
 		},
 		image: {
-			src: "/therapy.jpg",
+			src: "/assets/images/therapy.jpg",
 			id: "image-3",
 			containerClassName: "images__container__item__inner-element",
 			className: "images__container__item__img",
@@ -52,7 +52,7 @@ const movements = [
 			className: "concepts__container__item__text",
 		},
 		image: {
-			src: "/therapy.jpg",
+			src: "/assets/images/therapy.jpg",
 			id: "image-4",
 			containerClassName: "images__container__item__inner-element",
 			className: "images__container__item__img",
@@ -67,7 +67,7 @@ const movements = [
 			className: "concepts__container__item__text",
 		},
 		image: {
-			src: "/therapy.jpg",
+			src: "/assets/images/therapy.jpg",
 			id: "image-5",
 			containerClassName: "images__container__item__inner-element",
 			className: "images__container__item__img",
@@ -82,7 +82,7 @@ const movements = [
 			className: "concepts__container__item__text",
 		},
 		image: {
-			src: "/therapy.jpg",
+			src: "/assets/images/therapy.jpg",
 			id: "image-6",
 			containerClassName: "images__container__item__inner-element",
 			className: "images__container__item__img",
@@ -189,7 +189,9 @@ const createElements = () => {
 		concept.id = shuffledConcepts[i].id;
 		concept.draggable = true;
 
-		image.src = shuffledImages[i].src;
+		/* image.src =
+			shuffledImages[i].src; */
+		image.src = "/assets/images/therapy.jpg";
 		image.alt = shuffledImages[i].alt;
 		image.classList.add(shuffledImages[i].className);
 
