@@ -115,9 +115,10 @@ body {
 .movements__container__item__container {
 	width: 100%;
 	min-height: 75px;
+        height: auto;
 	display: grid;
 	grid-template-columns: repeat(2, 1fr);
-	grid-auto-rows: max-content;
+	grid-auto-rows: min-content;
 	grid-template-areas:
 		"concept image"
 		"concept-drop image-drop";
