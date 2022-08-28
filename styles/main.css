@@ -51,6 +51,24 @@ body {
 	align-items: center;
 }
 
+.instructions__title {
+	color: var(--primary-blue-color);
+}
+
+.instructions__text {
+	width: 90%;
+	margin: 2rem 0;
+	text-align: center;
+}
+
+.section__title {
+	color: var(--secondary-green-color);
+}
+
+#instructions__text-desktop {
+	display: none;
+}
+
 .movements__container {
 	align-items: center;
 }
@@ -153,11 +171,13 @@ body {
 
 .concepts__container__item,
 .images__container__item {
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	margin: 1rem 0;
 	width: 90%;
 	min-width: 288px;
 	height: 140px;
-	padding: 2rem;
 	border: 1px solid var(--secondary-border-color);
 	border-radius: 15px;
 }
@@ -172,6 +192,11 @@ body {
 	border-radius: 15px;
 }
 
+.concepts__container__item__text {
+	text-align: justify;
+	padding: 0 1.5rem;
+}
+
 .images__container__item__img {
 	display: inline;
 	z-index: -3;
@@ -181,7 +206,7 @@ body {
 
 .button {
 	margin: 1rem;
-	width: 25%;
+	width: 50%;
 	padding: 1rem;
 	background: none;
 	color: var(--primary-blue-color);
@@ -240,6 +265,7 @@ body {
 	flex-direction: column;
 	align-items: center;
 	gap: 2rem;
+	margin: 2rem 0;
 }
 
 .footer-top__text {

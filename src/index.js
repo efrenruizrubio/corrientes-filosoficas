@@ -2,7 +2,7 @@ const movements = [
 	{
 		name: "Movement 1",
 		concept: {
-			name: "Concept 1",
+			name: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum nobis animi itaque corporis architecto eligendi non? Iusto iste qui, sequi at, consequatur quisquam odio cum consectetur, assumenda velit sed porro.",
 			id: "concept-1",
 			className: "concepts__container__item__text",
 		},
@@ -17,7 +17,7 @@ const movements = [
 	{
 		name: "Movement 2",
 		concept: {
-			name: "Concept 2",
+			name: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum nobis animi itaque corporis architecto eligendi non? Iusto iste qui, sequi at, consequatur quisquam odio cum consectetur, assumenda velit sed porro.",
 			id: "concept-2",
 			className: "concepts__container__item__text",
 		},
@@ -32,7 +32,7 @@ const movements = [
 	{
 		name: "Movement 3",
 		concept: {
-			name: "Concept 3",
+			name: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum nobis animi itaque corporis architecto eligendi non? Iusto iste qui, sequi at, consequatur quisquam odio cum consectetur, assumenda velit sed porro.",
 			id: "concept-3",
 			className: "concepts__container__item__text",
 		},
@@ -47,7 +47,7 @@ const movements = [
 	{
 		name: "Movement 4",
 		concept: {
-			name: "Concept 4",
+			name: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum nobis animi itaque corporis architecto eligendi non? Iusto iste qui, sequi at, consequatur quisquam odio cum consectetur, assumenda velit sed porro.",
 			id: "concept-4",
 			className: "concepts__container__item__text",
 		},
@@ -62,7 +62,7 @@ const movements = [
 	{
 		name: "Movement 5",
 		concept: {
-			name: "Concept 5",
+			name: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum nobis animi itaque corporis architecto eligendi non? Iusto iste qui, sequi at, consequatur quisquam odio cum consectetur, assumenda velit sed porro.",
 			id: "concept-5",
 			className: "concepts__container__item__text",
 		},
@@ -77,7 +77,7 @@ const movements = [
 	{
 		name: "Movement 6",
 		concept: {
-			name: "Concept 6",
+			name: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum nobis animi itaque corporis architecto eligendi non? Iusto iste qui, sequi at, consequatur quisquam odio cum consectetur, assumenda velit sed porro.",
 			id: "concept-6",
 			className: "concepts__container__item__text",
 		},
