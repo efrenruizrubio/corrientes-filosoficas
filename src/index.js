@@ -103,10 +103,6 @@ const movements = [
 	},
 ];
 
-const myHeaders = new Headers();
-
-myHeaders.set("Cache-control", "public, max-age=0");
-
 const shuffleArray = (arr) => {
 	return arr.sort((a, b) => 0.5 - Math.random());
 };
