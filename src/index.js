@@ -99,7 +99,24 @@ const movementsContainer = document.querySelector("#movements");
 const conceptsContainer = document.querySelector("#concepts");
 const imagesContainer = document.querySelector("#images");
 
-if (window.innerWidth >= 1440) {
+if (window.innerWidth < 1440) {
+	window.addEventListener("resize", () => {
+		if (window.innerWidth >= 1440) {
+			const conceptsTitle = document.getElementById("concepts__title");
+			const imagesTitle = document.getElementById("images__title");
+
+			if (
+				conceptsContainer.contains(conceptsTitle) ||
+				imagesContainer.contains(imagesTitle)
+			) {
+				conceptsContainer.removeChild(conceptsTitle);
+				conceptsContainer.insertAdjacentElement("beforebegin", conceptsTitle);
+				imagesContainer.removeChild(imagesTitle);
+				imagesContainer.insertAdjacentElement("beforebegin", imagesTitle);
+			}
+		}
+	});
+} else {
 	const conceptsTitle = document.getElementById("concepts__title");
 	const imagesTitle = document.getElementById("images__title");
 
@@ -199,9 +216,7 @@ const createElements = () => {
 		concept.id = shuffledConcepts[i].id;
 		concept.draggable = true;
 
-		/* image.src =
-			shuffledImages[i].src; */
-		image.src = "/assets/images/therapy.jpg";
+		image.src = shuffledImages[i].src;
 		image.alt = shuffledImages[i].alt;
 		image.classList.add(shuffledImages[i].className);
 
@@ -371,6 +386,11 @@ const dragDrop = (e) => {
 	}
 };
 
+const reset = () => {
+	history.scrollRestoration = "manual";
+	window.location.reload();
+};
+
 const submit = () => {
 	const answersConcepts = Array.from(
 		document.querySelectorAll(".movements__container__item__drop__concept"),
@@ -420,11 +440,6 @@ const submit = () => {
 		allowEnterKey: false,
 		stopKeydownPropagation: false,
 	});
-};
-
-const reset = () => {
-	history.scrollRestoration = "manual";
-	window.location.reload();
 };
 
 const handleEvents = () => {
