@@ -1,0 +1,45 @@
+.header {
+	margin: 2rem 0;
+}
+
+.instructions__text + .section__title {
+	width: 96.5%;
+}
+
+#instructions__text-desktop {
+	width: 50%;
+}
+
+.movements__container {
+	grid-template-columns: repeat(3, 1fr);
+}
+
+.main__sections {
+	flex-direction: column;
+	align-items: center;
+}
+
+#concepts__title,
+#images__title {
+	width: 96.5%;
+}
+
+.concepts__container,
+.images__container {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	place-items: center;
+	margin-bottom: 1rem;
+}
+
+.concepts__container__item__text {
+	font-size: 1.7rem;
+}
+
+.button {
+	font-size: 1.5rem;
+}
+
+.footer-top__text {
+	font-size: 1.8rem;
+}

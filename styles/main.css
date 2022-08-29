@@ -34,6 +34,7 @@ body {
 	align-items: center;
 	width: 100%;
 	height: 75px;
+	margin-bottom: 1rem;
 }
 
 .header__logo {
@@ -51,6 +52,15 @@ body {
 	align-items: center;
 }
 
+.movements__container {
+	display: grid;
+	grid-template-columns: 1fr;
+	grid-auto-rows: auto;
+	place-items: center;
+	gap: 2rem;
+	margin: 1rem 0;
+}
+
 .instructions__title {
 	color: var(--primary-blue-color);
 }
@@ -62,18 +72,20 @@ body {
 }
 
 .section__title {
+	width: 90%;
 	color: var(--secondary-green-color);
+	text-align: center;
+	border-bottom: 1px solid;
+	margin: 1rem 0;
+	padding-bottom: 1rem;
 }
 
 #instructions__text-desktop {
 	display: none;
 }
 
-.movements__container {
-	align-items: center;
-}
-
 .movements__title {
+	text-align: center;
 	color: var(--primary-blue-color);
 	margin: 1rem 0;
 }
@@ -86,8 +98,22 @@ body {
 	grid-area: concept;
 }
 
+.concept__subtitle,
+.image__subtitle {
+	width: 100%;
+	text-align: center;
+	padding-bottom: 1rem;
+	border-bottom: 1px solid;
+	border-radius: 0.5rem;
+}
+
 .image__subtitle {
 	grid-area: image;
+}
+
+.movements__flex-container {
+	width: 100%;
+	min-width: 320px;
 }
 
 .movements__container__item__drop__concept {
@@ -99,15 +125,9 @@ body {
 }
 
 .movements__container__item {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	margin: 1rem 0;
 	width: 90%;
-	height: auto;
+	height: 100%;
 	min-width: 288px;
-	min-height: 100px;
-	height: auto;
 	border: 1px solid var(--secondary-border-color);
 	border-radius: 15px;
 }
@@ -117,14 +137,15 @@ body {
 	min-height: 75px;
 	height: auto;
 	display: grid;
-	grid-template-columns: repeat(2, 1fr);
-	grid-auto-rows: min-content;
+	grid-template-columns: 1fr;
 	grid-template-areas:
-		"concept image"
-		"concept-drop image-drop";
+		"concept"
+		"concept-drop"
+		"image"
+		"image-drop";
 	place-items: center;
 	gap: 1rem;
-	padding: 0 1rem;
+	padding: 1rem 1rem;
 }
 
 .movements__container__item__text {
@@ -132,11 +153,20 @@ body {
 }
 
 .movements__container__item__drop {
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	width: 100%;
 	min-height: 102px;
+	height: 100%;
 	margin: 1rem;
 	border: 1px solid var(--secondary-border-color);
 	border-radius: 2rem;
+}
+
+.main__sections {
+	min-width: 320px;
+	width: 100%;
 }
 
 .item-hold {
@@ -193,9 +223,15 @@ body {
 	border-radius: 15px;
 }
 
+.concepts__container__item__text:hover,
+.images__container__item__inner-element:hover {
+	transform: scale(1.05);
+	transition: all 0.2s;
+}
+
 .concepts__container__item__text {
-	text-align: justify;
-	padding: 1.5rem 1.5rem;
+	text-align: center;
+	padding: 0 1.5rem;
 }
 
 .images__container__item__img {
@@ -218,7 +254,7 @@ body {
 
 .button:hover {
 	transform: scale(1.1);
-	transition: all 0.1s;
+	transition: all 0.2s;
 }
 
 .button:disabled {

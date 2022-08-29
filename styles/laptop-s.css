@@ -1,0 +1,35 @@
+.header__logo {
+	width: 250px;
+}
+
+.instructions__text {
+	display: none;
+}
+
+#instructions__text-desktop {
+	display: block;
+	width: 75%;
+	font-size: 1.8rem;
+}
+
+.instructions__text + .section__title {
+	width: 95%;
+}
+
+.movements__container {
+	grid-template-columns: repeat(2, 1fr);
+}
+
+.movements__container__item__container {
+	grid-template-columns: repeat(2, 1fr);
+	grid-template-areas:
+		"concept image"
+		"concept-drop image-drop";
+	place-items: center;
+	gap: 1rem;
+	padding: 1rem 1rem;
+}
+
+.main__sections {
+	display: flex;
+}

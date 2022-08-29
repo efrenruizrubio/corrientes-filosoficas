@@ -11,11 +11,45 @@
 		<meta name="robots" content="index, follow" />
 		<title>Corrientes Filos&oacute;ficas</title>
 		<link rel="stylesheet" href="./styles/main.css" />
+		<link
+			rel="stylesheet"
+			href="./styles/tablet.css"
+			media="(min-width: 768px)"
+			defer
+		/>
+		<link
+			rel="stylesheet"
+			href="./styles/laptop-s.css"
+			media="(min-width: 1024px)"
+			defer
+		/>
+		<link
+			rel="stylesheet"
+			href="./styles/laptop-l.css"
+			media="(min-width: 1440px)"
+			defer
+		/>
+		<link
+			rel="stylesheet"
+			href="./styles/4k.css"
+			media="(min-width: 2560px)"
+			defer
+		/>
+		<link
+			rel="stylesheet"
+			href="./styles/laptop-l.css"
+			media="(min-width: 1440px)"
+			defer
+		/>
 		<script src="//cdn.jsdelivr.net/npm/sweetalert2@11" defer></script>
 	</head>
 	<body>
 		<header class="header">
-			<img src="./assets/icons/logo.svg" alt="da" class="header__logo" />
+			<img
+				src="./assets/icons/logo.svg"
+				alt="Corrientes filosoficas logo"
+				class="header__logo"
+			/>
 		</header>
 		<main class="main">
 			<h2 class="instructions__title">Instrucciones</h2>
@@ -29,15 +63,17 @@
 				respectivos, al soltar todos los elementos aparecerá un botón en la
 				parte de abajo para comprobar las respuestas.
 			</p>
-			<section class="movements__container" id="movements">
-				<h2 class="section__title">Corrientes</h2>
-			</section>
-			<section class="concepts__container" id="concepts">
-				<h2 class="section__title">Conceptos</h2>
-			</section>
-			<section class="images__container" id="images">
-				<h2 class="section__title">Im&aacute;genes</h2>
-			</section>
+
+			<h2 class="section__title">Corrientes</h2>
+			<section class="movements__container" id="movements"></section>
+			<div class="main__sections">
+				<section class="concepts__container" id="concepts">
+					<h2 class="section__title" id="concepts__title">Conceptos</h2>
+				</section>
+				<section class="images__container" id="images">
+					<h2 class="section__title" id="images__title">Im&aacute;genes</h2>
+				</section>
+			</div>
 			<button type="button" class="button reset-button">
 				Reiniciar el juego
 			</button>

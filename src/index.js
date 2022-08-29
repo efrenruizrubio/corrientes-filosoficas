@@ -99,6 +99,16 @@ const movementsContainer = document.querySelector("#movements");
 const conceptsContainer = document.querySelector("#concepts");
 const imagesContainer = document.querySelector("#images");
 
+if (window.innerWidth >= 1440) {
+	const conceptsTitle = document.getElementById("concepts__title");
+	const imagesTitle = document.getElementById("images__title");
+
+	conceptsContainer.removeChild(conceptsTitle);
+	conceptsContainer.insertAdjacentElement("beforebegin", conceptsTitle);
+	imagesContainer.removeChild(imagesTitle);
+	imagesContainer.insertAdjacentElement("beforebegin", imagesTitle);
+}
+
 const conceptsArray = [];
 const imagesArray = [];
 
@@ -339,6 +349,24 @@ const dragDrop = (e) => {
 			submitButton.innerText = "Comprobar respuestas";
 			imagesContainer.insertAdjacentElement("afterend", submitButton);
 			submitButton.addEventListener("click", submit);
+		}
+	}
+
+	if (!conceptsContainer.firstElementChild) {
+		const conceptsTitle = document.getElementById("concepts__title");
+		const itemsContainer = document.querySelector(".main__sections");
+
+		if (itemsContainer.contains(conceptsTitle)) {
+			itemsContainer.removeChild(conceptsTitle);
+		}
+	}
+
+	if (!imagesContainer.firstElementChild) {
+		const imagesTitle = document.getElementById("images__title");
+		const itemsContainer = document.querySelector(".main__sections");
+
+		if (itemsContainer.contains(imagesTitle)) {
+			itemsContainer.removeChild(imagesTitle);
 		}
 	}
 };
