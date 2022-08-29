@@ -101,10 +101,9 @@ const imagesContainer = document.querySelector("#images");
 
 if (window.innerWidth < 1440) {
 	window.addEventListener("resize", () => {
+		const conceptsTitle = document.getElementById("concepts__title");
+		const imagesTitle = document.getElementById("images__title");
 		if (window.innerWidth >= 1440) {
-			const conceptsTitle = document.getElementById("concepts__title");
-			const imagesTitle = document.getElementById("images__title");
-
 			if (
 				conceptsContainer.contains(conceptsTitle) ||
 				imagesContainer.contains(imagesTitle)
@@ -114,6 +113,9 @@ if (window.innerWidth < 1440) {
 				imagesContainer.removeChild(imagesTitle);
 				imagesContainer.insertAdjacentElement("beforebegin", imagesTitle);
 			}
+		} else {
+			conceptsContainer.insertAdjacentElement("afterbegin", conceptsTitle);
+			imagesContainer.insertAdjacentElement("afterbegin", imagesTitle);
 		}
 	});
 } else {
