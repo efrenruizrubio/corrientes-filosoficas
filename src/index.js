@@ -11,6 +11,8 @@ const movements = [
 			id: "image-1",
 			containerClassName: "images__container__item__inner-element",
 			className: "images__container__item__img",
+			width: "233",
+			height: "180",
 			alt: "imagen 1",
 		},
 	},
@@ -26,6 +28,8 @@ const movements = [
 			id: "image-2",
 			containerClassName: "images__container__item__inner-element",
 			className: "images__container__item__img",
+			width: "233",
+			height: "180",
 			alt: "imagen 2",
 		},
 	},
@@ -41,6 +45,8 @@ const movements = [
 			id: "image-3",
 			containerClassName: "images__container__item__inner-element",
 			className: "images__container__item__img",
+			width: "233",
+			height: "180",
 			alt: "imagen 3",
 		},
 	},
@@ -56,6 +62,8 @@ const movements = [
 			id: "image-4",
 			containerClassName: "images__container__item__inner-element",
 			className: "images__container__item__img",
+			width: "233",
+			height: "180",
 			alt: "imagen 4",
 		},
 	},
@@ -71,6 +79,8 @@ const movements = [
 			id: "image-5",
 			containerClassName: "images__container__item__inner-element",
 			className: "images__container__item__img",
+			width: "233",
+			height: "180",
 			alt: "imagen 5",
 		},
 	},
@@ -86,6 +96,8 @@ const movements = [
 			id: "image-6",
 			containerClassName: "images__container__item__inner-element",
 			className: "images__container__item__img",
+			width: "233",
+			height: "180",
 			alt: "imagen 6",
 		},
 	},
@@ -220,6 +232,8 @@ const createElements = () => {
 
 		image.src = shuffledImages[i].src;
 		image.alt = shuffledImages[i].alt;
+		image.width = shuffledImages[i].width;
+		image.height = shuffledImages[i].height;
 		image.classList.add(shuffledImages[i].className);
 
 		innerImageItemContainer.classList.add(shuffledImages[i].containerClassName);
