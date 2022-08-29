@@ -324,3 +324,113 @@ body {
 	width: 32px;
 	height: 32px;
 }
+
+@media screen and (min-width: 768px) {
+	.header {
+		margin-top: 1rem;
+	}
+
+	.header__logo {
+		width: 225px;
+	}
+}
+
+@media screen and (min-width: 1024px) {
+	.header__logo {
+		width: 250px;
+	}
+
+	.instructions__text {
+		display: none;
+	}
+
+	#instructions__text-desktop {
+		display: block;
+		width: 75%;
+		font-size: 1.8rem;
+	}
+
+	.instructions__text + .section__title {
+		width: 95%;
+	}
+
+	.movements__container {
+		grid-template-columns: repeat(2, 1fr);
+	}
+
+	.movements__container__item__container {
+		grid-template-columns: repeat(2, 1fr);
+		grid-template-areas:
+			"concept image"
+			"concept-drop image-drop";
+		place-items: center;
+		gap: 1rem;
+		padding: 1rem 1rem;
+	}
+
+	.main__sections {
+		display: flex;
+	}
+}
+
+@media screen and (min-width: 1440px) {
+	.header {
+		margin: 2rem 0;
+	}
+
+	.instructions__text + .section__title {
+		width: 96.5%;
+	}
+
+	#instructions__text-desktop {
+		width: 50%;
+	}
+
+	.movements__container {
+		grid-template-columns: repeat(3, 1fr);
+	}
+
+	.main__sections {
+		flex-direction: column;
+		align-items: center;
+	}
+
+	#concepts__title,
+	#images__title {
+		width: 96.5%;
+	}
+
+	.concepts__container,
+	.images__container {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		place-items: center;
+		margin-bottom: 1rem;
+	}
+
+	.concepts__container__item__text {
+		font-size: 1.7rem;
+	}
+
+	.button {
+		font-size: 1.5rem;
+	}
+
+	.footer-top__text {
+		font-size: 1.8rem;
+	}
+}
+
+@media screen and (min-width: 2560px) {
+	.header__logo {
+		width: 275px;
+	}
+
+	.instructions__title {
+		font-size: 2.6rem;
+	}
+
+	#instructions__text-desktop {
+		font-size: 2rem;
+	}
+}
