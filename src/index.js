@@ -235,6 +235,7 @@ const createElements = () => {
 		image.alt = shuffledImages[i].alt;
 		image.width = shuffledImages[i].width;
 		image.height = shuffledImages[i].height;
+		image.draggable = false;
 		image.classList.add(shuffledImages[i].className);
 
 		innerImageItemContainer.classList.add(shuffledImages[i].containerClassName);

@@ -218,6 +218,7 @@ body {
 .concepts__container__item__text,
 .images__container__item__inner-element {
 	display: flex;
+	width: 100%;
 	justify-content: center;
 	align-items: center;
 	min-height: 100px;
