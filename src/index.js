@@ -214,6 +214,7 @@ const createElements = () => {
 
 	for (let i = 0; i < movements.length; i++) {
 		const conceptItemContainer = document.createElement("div");
+
 		const imageItemContainer = document.createElement("div");
 		const innerImageItemContainer = document.createElement("div");
 
@@ -224,19 +225,28 @@ const createElements = () => {
 		imageItemContainer.id = `image-container-${shuffledImages[i].id}`;
 
 		const concept = document.createElement("p");
-		const image = document.createElement("img");
 
 		concept.classList.add(shuffledConcepts[i].className);
 		concept.innerText = shuffledConcepts[i].name;
 		concept.id = shuffledConcepts[i].id;
 		concept.draggable = true;
 
-		image.src = shuffledImages[i].src;
-		image.alt = shuffledImages[i].alt;
-		image.width = shuffledImages[i].width;
-		image.height = shuffledImages[i].height;
-		image.draggable = false;
-		image.classList.add(shuffledImages[i].className);
+		if (window.innerWidth < 1024) {
+			const image = document.createElement("div");
+			image.style.backgroundImage = shuffledImages[i].src;
+			image.style.width = shuffledImages[i].width;
+			image.style.height = shuffledImages[i].height;
+			image.draggable = false;
+			image.classList.add(shuffledImages[i].className);
+		} else {
+			const image = document.createElement("img");
+			image.src = shuffledImages[i].src;
+			image.alt = shuffledImages[i].alt;
+			image.width = shuffledImages[i].width;
+			image.height = shuffledImages[i].height;
+			image.draggable = false;
+			image.classList.add(shuffledImages[i].className);
+		}
 
 		innerImageItemContainer.classList.add(shuffledImages[i].containerClassName);
 		innerImageItemContainer.id = shuffledImages[i].id;
@@ -506,9 +516,3 @@ const handleEvents = () => {
 };
 
 createElements();
-
-window.oncontextmenu = function (event) {
-	event.preventDefault();
-	event.stopPropagation();
-	return false;
-};
