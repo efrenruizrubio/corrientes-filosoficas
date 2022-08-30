@@ -206,9 +206,11 @@ body {
 	justify-content: center;
 	align-items: center;
 	margin: 1rem 0;
+	padding: 1rem 0;
 	width: 90%;
 	min-width: 288px;
-	height: 140px;
+	min-height: 140px;
+	height: auto;
 	border: 1px solid var(--secondary-border-color);
 	border-radius: 15px;
 }
@@ -231,7 +233,7 @@ body {
 
 .concepts__container__item__text {
 	text-align: center;
-	padding: 0 1.5rem;
+	padding: 1.5rem;
 }
 
 .images__container__item__img {
