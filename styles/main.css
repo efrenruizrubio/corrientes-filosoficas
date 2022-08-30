@@ -227,6 +227,7 @@ body {
 }
 
 .images__container__item__inner-element {
+	padding: 1rem;
 }
 
 .concepts__container__item__text:hover,
@@ -243,8 +244,10 @@ body {
 .images__container__item__img {
 	display: inline;
 	z-index: -3;
-	width: 100px;
-	height: auto;
+	width: 102px;
+	height: calc(102px - 33.66px);
+	background-repeat: no-repeat;
+	background-size: cover;
 }
 
 .button {

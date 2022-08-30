@@ -224,17 +224,14 @@ const createElements = () => {
 		imageItemContainer.id = `image-container-${shuffledImages[i].id}`;
 
 		const concept = document.createElement("p");
-		const image = document.createElement("img");
+		const image = document.createElement("div");
 
 		concept.classList.add(shuffledConcepts[i].className);
 		concept.innerText = shuffledConcepts[i].name;
 		concept.id = shuffledConcepts[i].id;
 		concept.draggable = true;
 
-		image.src = shuffledImages[i].src;
-		image.alt = shuffledImages[i].alt;
-		image.width = shuffledImages[i].width;
-		image.height = shuffledImages[i].height;
+		image.style.backgroundImage = `url(${shuffledImages[i].src})`;
 		image.classList.add(shuffledImages[i].className);
 
 		innerImageItemContainer.classList.add(shuffledImages[i].containerClassName);
