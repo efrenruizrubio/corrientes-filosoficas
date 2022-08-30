@@ -506,6 +506,9 @@ const handleEvents = () => {
 };
 
 createElements();
-window.addEventListener("contextmenu", (e) => {
-	e.preventDefault();
-});
+
+window.oncontextmenu = function (event) {
+	event.preventDefault();
+	event.stopPropagation();
+	return false;
+};
