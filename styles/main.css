@@ -226,6 +226,11 @@ body {
 	border-radius: 15px;
 }
 
+.images__container__item__inner-element {
+	-webkit-user-select: none;
+	user-select: none;
+}
+
 .concepts__container__item__text:hover,
 .images__container__item__inner-element:hover {
 	transform: scale(1.05);
