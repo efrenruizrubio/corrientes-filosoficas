@@ -376,21 +376,23 @@ const dragDrop = (e) => {
 		return element.firstChild;
 	});
 
-	if (!conceptsContainer.firstElementChild) {
-		const conceptsTitle = document.getElementById("concepts__title");
-		const itemsContainer = document.querySelector(".main__sections");
+	if (document.querySelector(".main__sections")) {
+		if (!conceptsContainer.firstElementChild) {
+			const conceptsTitle = document.getElementById("concepts__title");
+			const itemsContainer = document.querySelector(".main__sections");
 
-		if (itemsContainer.contains(conceptsTitle)) {
-			itemsContainer.removeChild(conceptsTitle);
+			if (itemsContainer.contains(conceptsTitle)) {
+				itemsContainer.removeChild(conceptsTitle);
+			}
 		}
-	}
 
-	if (!imagesContainer.firstElementChild) {
-		const imagesTitle = document.getElementById("images__title");
-		const itemsContainer = document.querySelector(".main__sections");
+		if (!imagesContainer.firstElementChild) {
+			const imagesTitle = document.getElementById("images__title");
+			const itemsContainer = document.querySelector(".main__sections");
 
-		if (itemsContainer.contains(imagesTitle)) {
-			itemsContainer.removeChild(imagesTitle);
+			if (itemsContainer.contains(imagesTitle)) {
+				itemsContainer.removeChild(imagesTitle);
+			}
 		}
 	}
 
