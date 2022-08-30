@@ -487,6 +487,10 @@ const handleEvents = () => {
 		image[i].removeEventListener("dragleave", dragLeave);
 		image[i].removeEventListener("dragover", dragOver);
 		image[i].removeEventListener("drop", dragDrop);
+
+		image[i].addEventListener("contextmenu", (e) => {
+			e.preventDefault();
+		});
 	}
 
 	for (let i = 0; i < conceptsContainer.length; i++) {
