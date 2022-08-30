@@ -337,21 +337,13 @@ const dragDrop = (e) => {
 			if (element.nodeName === "P") {
 				optionElement.classList.add("concepts__container__item");
 				optionElement.id = `concept-container-${childElement.id}`;
-				if (window.innerWidth < 1440) {
-					const conceptTitle = document.getElementById("concepts__title");
-					conceptTitle.insertAdjacentElement("afterend", optionElement);
-				} else {
-					conceptsContainer.insertAdjacentElement("afterbegin", optionElement);
-				}
+
+				conceptsContainer.insertAdjacentElement("afterbegin", optionElement);
 			} else {
 				optionElement.classList.add("images__container__item");
 				optionElement.id = `image-container-${childElement.id}`;
-				if (window.innerWidth < 1440) {
-					const imageTitle = document.getElementById("images__title");
-					imageTitle.insertAdjacentElement("afterend", optionElement);
-				} else {
-					imagesContainer.insertAdjacentElement("afterbegin", optionElement);
-				}
+
+				imagesContainer.insertAdjacentElement("afterbegin", optionElement);
 			}
 
 			parentElement.append(element);
