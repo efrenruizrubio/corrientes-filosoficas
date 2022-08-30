@@ -28,6 +28,11 @@ body {
 	user-select: none;
 }
 
+img {
+	-webkit-user-select: none;
+	user-select: none;
+}
+
 .header {
 	display: flex;
 	justify-content: center;
@@ -228,6 +233,9 @@ body {
 
 .images__container__item__inner-element {
 	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-o-user-select: none;
 	user-select: none;
 }
 
