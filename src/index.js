@@ -111,7 +111,7 @@ const movementsContainer = document.querySelector("#movements");
 const conceptsContainer = document.querySelector("#concepts");
 const imagesContainer = document.querySelector("#images");
 
-window.addEventListener("resize", () => {
+/* window.addEventListener("resize", () => {
 	const conceptsTitle = document.getElementById("concepts__title");
 	const imagesTitle = document.getElementById("images__title");
 
@@ -126,8 +126,12 @@ window.addEventListener("resize", () => {
 			imagesContainer.insertAdjacentElement("beforebegin", imagesTitle);
 		}
 	} else {
-		conceptsContainer.insertAdjacentElement("afterbegin", conceptsTitle);
-		imagesContainer.insertAdjacentElement("afterbegin", imagesTitle);
+		conceptsContainer.firstElementChild
+			? conceptsContainer.insertAdjacentElement("afterbegin", conceptsTitle)
+			: null;
+		imagesContainer.firstElementChild
+			? imagesContainer.insertAdjacentElement("afterbegin", imagesTitle)
+			: null;
 	}
 });
 
@@ -140,7 +144,7 @@ if (window.innerWidth > 1440) {
 	imagesContainer.removeChild(imagesTitle);
 	imagesContainer.insertAdjacentElement("beforebegin", imagesTitle);
 }
-
+ */
 const conceptsArray = [];
 const imagesArray = [];
 
@@ -380,17 +384,6 @@ const dragDrop = (e) => {
 		return element.firstChild;
 	});
 
-	if (isFull) {
-		if (!document.querySelector(".submit-button")) {
-			const submitButton = document.createElement("button");
-			submitButton.type = "button";
-			submitButton.classList.add("button", "submit-button");
-			submitButton.innerText = "Comprobar respuestas";
-			imagesContainer.insertAdjacentElement("afterend", submitButton);
-			submitButton.addEventListener("click", submit);
-		}
-	}
-
 	if (!conceptsContainer.firstElementChild) {
 		const conceptsTitle = document.getElementById("concepts__title");
 		const itemsContainer = document.querySelector(".main__sections");
@@ -406,6 +399,23 @@ const dragDrop = (e) => {
 
 		if (itemsContainer.contains(imagesTitle)) {
 			itemsContainer.removeChild(imagesTitle);
+		}
+	}
+
+	if (isFull) {
+		if (!document.querySelector(".submit-button")) {
+			const main = document.querySelector(".main");
+			const mainSections = document.querySelector(".main__sections");
+			const submitButton = document.createElement("button");
+
+			submitButton.type = "button";
+			submitButton.classList.add("button", "submit-button");
+			submitButton.innerText = "Comprobar respuestas";
+
+			resetButton.insertAdjacentElement("beforebegin", submitButton);
+			submitButton.addEventListener("click", submit);
+
+			main.removeChild(mainSections);
 		}
 	}
 };

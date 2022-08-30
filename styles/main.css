@@ -80,7 +80,7 @@ body {
 	color: var(--secondary-green-color);
 	text-align: center;
 	border-bottom: 1px solid;
-	margin: 1rem 0;
+	margin: 1rem auto;
 	padding-bottom: 1rem;
 }
 
@@ -379,7 +379,30 @@ body {
 	}
 
 	.main__sections {
-		display: flex;
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		grid-auto-rows: max-content;
+		grid-template-areas:
+			"concept-title image-title"
+			"concept-container image-container";
+	}
+
+	#concepts__title {
+		place-self: center;
+		grid-area: concept-title;
+	}
+
+	#images__title {
+		place-self: center;
+		grid-area: image-title;
+	}
+
+	.concepts__container {
+		grid-area: concept-container;
+	}
+
+	.images__container {
+		grid-area: image-container;
 	}
 }
 
@@ -401,6 +424,7 @@ body {
 	}
 
 	.main__sections {
+		display: flex;
 		flex-direction: column;
 		align-items: center;
 	}
