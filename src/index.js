@@ -2,7 +2,7 @@ const movements = [
 	{
 		name: "Movement 1",
 		concept: {
-			name: "Concept 1",
+			name: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore officia minus modi expedita iusto incidunt adipisci asperiores unde, corporis voluptatum repellendus deleniti quidem inventore laudantium alias? Neque excepturi nihil modi.",
 			id: "concept-1",
 			className: "concepts__container__item__text",
 		},
@@ -19,7 +19,7 @@ const movements = [
 	{
 		name: "Movement 2",
 		concept: {
-			name: "Concept 2",
+			name: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore officia minus modi expedita iusto incidunt adipisci asperiores unde, corporis voluptatum repellendus deleniti quidem inventore laudantium alias? Neque excepturi nihil modi.",
 			id: "concept-2",
 			className: "concepts__container__item__text",
 		},
@@ -36,7 +36,7 @@ const movements = [
 	{
 		name: "Movement 3",
 		concept: {
-			name: "Concept 3",
+			name: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore officia minus modi expedita iusto incidunt adipisci asperiores unde, corporis voluptatum repellendus deleniti quidem inventore laudantium alias? Neque excepturi nihil modi.",
 			id: "concept-3",
 			className: "concepts__container__item__text",
 		},
@@ -53,7 +53,7 @@ const movements = [
 	{
 		name: "Movement 4",
 		concept: {
-			name: "Concept 4",
+			name: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore officia minus modi expedita iusto incidunt adipisci asperiores unde, corporis voluptatum repellendus deleniti quidem inventore laudantium alias? Neque excepturi nihil modi.",
 			id: "concept-4",
 			className: "concepts__container__item__text",
 		},
@@ -70,7 +70,7 @@ const movements = [
 	{
 		name: "Movement 5",
 		concept: {
-			name: "Concept 5",
+			name: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore officia minus modi expedita iusto incidunt adipisci asperiores unde, corporis voluptatum repellendus deleniti quidem inventore laudantium alias? Neque excepturi nihil modi.",
 			id: "concept-5",
 			className: "concepts__container__item__text",
 		},
@@ -87,7 +87,7 @@ const movements = [
 	{
 		name: "Movement 6",
 		concept: {
-			name: "Concept 6",
+			name: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore officia minus modi expedita iusto incidunt adipisci asperiores unde, corporis voluptatum repellendus deleniti quidem inventore laudantium alias? Neque excepturi nihil modi.",
 			id: "concept-6",
 			className: "concepts__container__item__text",
 		},
@@ -111,58 +111,8 @@ const movementsContainer = document.querySelector("#movements");
 const conceptsContainer = document.querySelector("#concepts");
 const imagesContainer = document.querySelector("#images");
 
-/* window.addEventListener("resize", () => {
-	const conceptsTitle = document.getElementById("concepts__title");
-	const imagesTitle = document.getElementById("images__title");
-
-	if (window.innerWidth >= 1440) {
-		if (
-			conceptsContainer.contains(conceptsTitle) ||
-			imagesContainer.contains(imagesTitle)
-		) {
-			conceptsContainer.removeChild(conceptsTitle);
-			conceptsContainer.insertAdjacentElement("beforebegin", conceptsTitle);
-			imagesContainer.removeChild(imagesTitle);
-			imagesContainer.insertAdjacentElement("beforebegin", imagesTitle);
-		}
-	} else {
-		conceptsContainer.firstElementChild
-			? conceptsContainer.insertAdjacentElement("afterbegin", conceptsTitle)
-			: null;
-		imagesContainer.firstElementChild
-			? imagesContainer.insertAdjacentElement("afterbegin", imagesTitle)
-			: null;
-	}
-});
-
-if (window.innerWidth > 1440) {
-	const conceptsTitle = document.getElementById("concepts__title");
-	const imagesTitle = document.getElementById("images__title");
-
-	conceptsContainer.removeChild(conceptsTitle);
-	conceptsContainer.insertAdjacentElement("beforebegin", conceptsTitle);
-	imagesContainer.removeChild(imagesTitle);
-	imagesContainer.insertAdjacentElement("beforebegin", imagesTitle);
-}
- */
 const conceptsArray = [];
 const imagesArray = [];
-
-/* 
-
-Tried to implement a stateful element in vanilla JS, it works, but not quite as
-I expected, but I think it's worth it to have it here as a comment, for the moment
-
-const useState = (defaultValue) => {
-	let value = defaultValue;
-	const getValue = () => {
-		return value;
-	}
-	const setValue = (newValue) => (value = newValue);
-	return [getValue, setValue];
-};
-
-const [disableButton, setDisableButton] = useState(true); */
 
 const resetButton = document.querySelector(".reset-button");
 

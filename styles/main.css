@@ -137,12 +137,10 @@ body {
 	min-height: 75px;
 	height: auto;
 	display: grid;
-	grid-template-columns: 1fr;
+	grid-template-columns: repeat(2, 1fr);
 	grid-template-areas:
-		"concept"
-		"concept-drop"
-		"image"
-		"image-drop";
+		"concept image"
+		"concept-drop image-drop";
 	place-items: center;
 	gap: 1rem;
 	padding: 1rem 1rem;
@@ -225,10 +223,6 @@ body {
 	min-height: 100px;
 	cursor: pointer;
 	border-radius: 15px;
-}
-
-.images__container__item__inner-element {
-	padding: 1rem;
 }
 
 .concepts__container__item__text:hover,
@@ -366,16 +360,6 @@ body {
 
 	.movements__container {
 		grid-template-columns: repeat(2, 1fr);
-	}
-
-	.movements__container__item__container {
-		grid-template-columns: repeat(2, 1fr);
-		grid-template-areas:
-			"concept image"
-			"concept-drop image-drop";
-		place-items: center;
-		gap: 1rem;
-		padding: 1rem 1rem;
 	}
 
 	.main__sections {
