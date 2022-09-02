@@ -167,6 +167,53 @@ body {
 	width: 100%;
 }
 
+.droppable__container {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	grid-auto-rows: 1fr;
+	gap: 2rem;
+	inset: 0;
+	position: fixed;
+	padding: 1.5rem;
+	visibility: hidden;
+	transition: all 350ms ease-in-out;
+	transform: translateX(100%);
+	will-change: transform, visibility;
+}
+
+.droppable__container--open {
+	transform: translateX(0%);
+	visibility: visible;
+	will-change: transform, visibility;
+	background-color: var(--primary-background-color);
+}
+
+.droppable__container__item {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	gap: 1.5rem;
+}
+
+.droppable__container__item-title {
+	padding-bottom: 1.5rem;
+	color: var(--primary-blue-color);
+	border-bottom: 1px solid var(--secondary-border-color);
+	border-radius: 10px;
+	text-align: center;
+}
+
+.droppable__container__item__dropzone {
+	width: 100%;
+	min-height: 102px;
+	border: 1px solid var(--secondary-border-color);
+	border-radius: 15px;
+}
+
+.droppable__container__movement {
+	min-height: 120px;
+}
+
 .item-hold {
 	border: 4px solid var(--primary-green-color);
 }

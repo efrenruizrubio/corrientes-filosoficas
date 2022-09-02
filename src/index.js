@@ -2,7 +2,7 @@ const movements = [
 	{
 		name: "Movement 1",
 		concept: {
-			name: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore officia minus modi expedita iusto incidunt adipisci asperiores unde, corporis voluptatum repellendus deleniti quidem inventore laudantium alias? Neque excepturi nihil modi.",
+			name: "Concept 1",
 			id: "concept-1",
 			className: "concepts__container__item__text",
 		},
@@ -19,7 +19,7 @@ const movements = [
 	{
 		name: "Movement 2",
 		concept: {
-			name: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore officia minus modi expedita iusto incidunt adipisci asperiores unde, corporis voluptatum repellendus deleniti quidem inventore laudantium alias? Neque excepturi nihil modi.",
+			name: "Concept 2",
 			id: "concept-2",
 			className: "concepts__container__item__text",
 		},
@@ -36,7 +36,7 @@ const movements = [
 	{
 		name: "Movement 3",
 		concept: {
-			name: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore officia minus modi expedita iusto incidunt adipisci asperiores unde, corporis voluptatum repellendus deleniti quidem inventore laudantium alias? Neque excepturi nihil modi.",
+			name: "Concept 3",
 			id: "concept-3",
 			className: "concepts__container__item__text",
 		},
@@ -53,7 +53,7 @@ const movements = [
 	{
 		name: "Movement 4",
 		concept: {
-			name: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore officia minus modi expedita iusto incidunt adipisci asperiores unde, corporis voluptatum repellendus deleniti quidem inventore laudantium alias? Neque excepturi nihil modi.",
+			name: "Concept 4",
 			id: "concept-4",
 			className: "concepts__container__item__text",
 		},
@@ -70,7 +70,7 @@ const movements = [
 	{
 		name: "Movement 5",
 		concept: {
-			name: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore officia minus modi expedita iusto incidunt adipisci asperiores unde, corporis voluptatum repellendus deleniti quidem inventore laudantium alias? Neque excepturi nihil modi.",
+			name: "Concept 5",
 			id: "concept-5",
 			className: "concepts__container__item__text",
 		},
@@ -87,7 +87,7 @@ const movements = [
 	{
 		name: "Movement 6",
 		concept: {
-			name: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore officia minus modi expedita iusto incidunt adipisci asperiores unde, corporis voluptatum repellendus deleniti quidem inventore laudantium alias? Neque excepturi nihil modi.",
+			name: "Concept 6",
 			id: "concept-6",
 			className: "concepts__container__item__text",
 		},
@@ -198,6 +198,11 @@ const createElements = () => {
 		imageItemContainer.append(innerImageItemContainer);
 		imagesContainer.append(imageItemContainer);
 	}
+	if (window.innerWidth < 1024) {
+		const droppableContainer = document.createElement("div");
+		droppableContainer.classList.add("droppable__container");
+		document.body.insertAdjacentElement("afterbegin", droppableContainer);
+	}
 	handleEvents();
 };
 
@@ -207,8 +212,38 @@ const dragStart = (e) => {
 	startingDragTarget = e.target;
 	e.dataTransfer.setData("text/plain", e.target.id);
 	e.dataTransfer.dropEffect = "move";
-	e.target.classList.add("item-hold");
 	setTimeout(() => e.target.classList.add("item-invisible"), 0);
+	if (window.innerWidth < 1024) {
+		const droppableContainer = document.querySelector(".droppable__container");
+		if (!droppableContainer.firstElementChild) {
+			movements.forEach((element) => {
+				const droppableItem = document.createElement("div");
+				const droppableItemDropZone = document.createElement("div");
+
+				droppableItem.classList.add("droppable__container__item");
+				droppableItemDropZone.classList.add(
+					"droppable__container__item__dropzone",
+				);
+				droppableItemDropZone.id = `droppable-${element.concept.id}`;
+				droppableItemDropZone.addEventListener("dragover", dragOver);
+				droppableItemDropZone.addEventListener("dragenter", dragEnter);
+				droppableItemDropZone.addEventListener("dragleave", dragLeave);
+				droppableItemDropZone.addEventListener("drop", dragDrop);
+
+				const title = document.createElement("h3");
+				title.classList.add("droppable__container__item-title");
+
+				title.innerText = element.name;
+				droppableItem.append(title);
+				droppableItem.append(droppableItemDropZone);
+
+				droppableContainer.append(droppableItem);
+			});
+		}
+		droppableContainer.classList.toggle("droppable__container--open");
+	} else {
+		e.target.classList.add("item-hold");
+	}
 };
 
 const dragEnd = (e) => {
@@ -217,9 +252,17 @@ const dragEnd = (e) => {
 		e.target.nodeName === "P"
 			? "concepts__container__item__text"
 			: "images__container__item__inner-element";
+
+	const droppableContainer = document.querySelector(".droppable__container");
+	if (droppableContainer) {
+		droppableContainer.classList.toggle("droppable__container--open");
+	}
 };
 
 const dragOver = (e) => {
+	if (window.innerWidth < 1024) {
+		e.preventDefault();
+	}
 	const idTarget = e.target.id.split("-").find((el) => {
 		return el === "concept" || el === "image";
 	});
@@ -247,7 +290,6 @@ const dragLeave = (e) => {
 
 const dragDrop = (e) => {
 	e.preventDefault();
-	e.target.classList.remove("item-hovered");
 
 	const elements = Array.from(
 		document.querySelectorAll(".movements__container__item__drop"),
@@ -258,8 +300,29 @@ const dragDrop = (e) => {
 	const conceptId = document.getElementById(`concept-container-${data}`);
 	const imageId = document.getElementById(`image-container-${data}`);
 
+	const targetElement = elements.find((el) => {
+		return el.id === `container-${data}`;
+	});
+
+	e.target.classList.remove("item-hovered");
+
 	const resetButton = document.querySelector(".reset-button");
 
+	const targetId = e.target.id.split("-").slice(-2).join("-");
+	/* if (data.split("-")[0] === "concept") {
+		const targetContainer = elements.find((el) => {
+			return el.id.split("-").slice(-2).join("-") === targetId;
+		});
+
+		!targetContainer.firstElementChild ? targetContainer.append(element) : null;
+	} */
+
+	/* if(window.innerWidth < 1024){
+		if(targetId)
+	} */
+
+	if (e.target.id.split("-")[0] === "droppable") {
+	}
 	if (!e.target.firstChild) {
 		e.target.append(element);
 	} else {
