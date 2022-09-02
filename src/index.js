@@ -15,6 +15,7 @@ const movements = [
 			height: "180",
 			alt: "imagen 1",
 		},
+		mainId: "1",
 	},
 	{
 		name: "Movement 2",
@@ -32,6 +33,7 @@ const movements = [
 			height: "180",
 			alt: "imagen 2",
 		},
+		mainId: "2",
 	},
 	{
 		name: "Movement 3",
@@ -49,6 +51,7 @@ const movements = [
 			height: "180",
 			alt: "imagen 3",
 		},
+		mainId: "3",
 	},
 	{
 		name: "Movement 4",
@@ -66,6 +69,7 @@ const movements = [
 			height: "180",
 			alt: "imagen 4",
 		},
+		mainId: "4",
 	},
 	{
 		name: "Movement 5",
@@ -83,6 +87,7 @@ const movements = [
 			height: "180",
 			alt: "imagen 5",
 		},
+		mainId: "5",
 	},
 	{
 		name: "Movement 6",
@@ -100,6 +105,7 @@ const movements = [
 			height: "180",
 			alt: "imagen 6",
 		},
+		mainId: "6",
 	},
 ];
 
@@ -224,7 +230,7 @@ const dragStart = (e) => {
 				droppableItemDropZone.classList.add(
 					"droppable__container__item__dropzone",
 				);
-				droppableItemDropZone.id = `droppable-${element.concept.id}`;
+				droppableItemDropZone.id = `droppable-${element.mainId}`;
 				droppableItemDropZone.addEventListener("dragover", dragOver);
 				droppableItemDropZone.addEventListener("dragenter", dragEnter);
 				droppableItemDropZone.addEventListener("dragleave", dragLeave);
@@ -306,11 +312,10 @@ const dragDrop = (e) => {
 
 	const targetElement =
 		e.target.id.split("-")[0] === "droppable"
-			? e.target.id.replace("droppable", "container")
+			? e.target.id.replace("droppable", `container-${data.split("-")[0]}`)
 			: e.target.id;
 
 	const targetContainer = document.getElementById(targetElement);
-	console.log(targetContainer);
 
 	if (!targetContainer.firstChild) {
 		targetContainer.append(element);
@@ -327,11 +332,63 @@ const dragDrop = (e) => {
 			return el.contains(element);
 		});
 
-		const childElement = document.getElementById(targetContainer.firstChild.id);
+		const childElement = !targetContainer.firstElementChild
+			? targetContainer
+			: targetContainer.firstElementChild;
+
+		const parentElement = elements.find((el) => {
+			return el.contains(childElement);
+		});
+
+		if (isInsideItems) {
+			const optionElement = document.createElement("div");
+			optionElement.append(childElement);
+
+			if (element.nodeName === "P") {
+				optionElement.classList.add("concepts__container__item");
+				optionElement.id = `concept-container-${childElement.id}`;
+
+				conceptsContainer.insertAdjacentElement("afterbegin", optionElement);
+			} else {
+				optionElement.classList.add("images__container__item");
+				optionElement.id = `image-container-${childElement.id}`;
+				imagesContainer.insertAdjacentElement("afterbegin", optionElement);
+			}
+
+			parentElement.append(element);
+		} else {
+			const parentOfDragged = elements.find((el) => {
+				return el.contains(element);
+			});
+
+			if (element.id.split("-")[0] === "concept") {
+				parentOfDragged.append(childElement);
+				parentElement.append(element);
+			} else {
+				if (childElement.id) {
+					parentOfDragged.append(childElement);
+				} else {
+					const imageElement = document.getElementById(targetElement);
+					parentOfDragged.append(imageElement);
+				}
+
+				parentElement.append(element);
+			}
+		}
+
+		/* const childElement = !targetContainer.firstElementChild
+			? targetContainer
+			: targetContainer.firstElementChild;
+
+		console.log(childElement);
+		console.log(targetContainer);
+		console.log(targetContainer.firstElementChild);
 
 		const parentElement = elements.find((el) => {
 			return el.firstChild === childElement;
 		});
+
+		console.log(parentElement);
 
 		if (isInsideItems) {
 			const optionElement = document.createElement("div");
@@ -352,13 +409,15 @@ const dragDrop = (e) => {
 			parentElement.append(element);
 		} else {
 			const parentTarget = elements.find((el) => {
-				return el.firstChild === element;
+				return el.firstElementChild === element;
 			});
+
+			console.log(parentTarget);
 
 			const childTarget = parentTarget.firstChild;
 			parentElement.append(childTarget);
 			parentTarget.append(childElement);
-		}
+		} */
 	}
 
 	const hasElements = elements.some((element) => {
@@ -418,8 +477,30 @@ const dragDrop = (e) => {
 };
 
 const reset = () => {
-	history.scrollRestoration = "manual";
-	window.location.reload();
+	Swal.fire({
+		title: "¿Seguro que quieres reiniciar el juego?",
+		html: `<span class="alert__text--confirm-reset">Al reiniciar el juego, perderás las respuestas ingresadas.</span>`,
+		icon: "question",
+		showCancelButton: true,
+		background: "#0e1b33",
+		confirmButtonText: "Sí, reiniciar juego.",
+		confirmButtonColor: "red",
+		cancelButtonText: "Cancelar",
+		cancelButtonColor: "#009076",
+		customClass: {
+			title: "alert__title",
+		},
+		padding: "2rem",
+		allowOutsideClick: false,
+		allowEscapeKey: false,
+		allowEnterKey: false,
+		stopKeydownPropagation: false,
+	}).then((result) => {
+		if (result.isConfirmed) {
+			history.scrollRestoration = "manual";
+			window.location.reload();
+		}
+	});
 };
 
 const submit = () => {
