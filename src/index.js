@@ -300,31 +300,20 @@ const dragDrop = (e) => {
 	const conceptId = document.getElementById(`concept-container-${data}`);
 	const imageId = document.getElementById(`image-container-${data}`);
 
-	const targetElement = elements.find((el) => {
-		return el.id === `container-${data}`;
-	});
-
 	e.target.classList.remove("item-hovered");
 
 	const resetButton = document.querySelector(".reset-button");
 
-	const targetId = e.target.id.split("-").slice(-2).join("-");
-	/* if (data.split("-")[0] === "concept") {
-		const targetContainer = elements.find((el) => {
-			return el.id.split("-").slice(-2).join("-") === targetId;
-		});
+	const targetElement =
+		e.target.id.split("-")[0] === "droppable"
+			? e.target.id.replace("droppable", "container")
+			: e.target.id;
 
-		!targetContainer.firstElementChild ? targetContainer.append(element) : null;
-	} */
+	const targetContainer = document.getElementById(targetElement);
+	console.log(targetContainer);
 
-	/* if(window.innerWidth < 1024){
-		if(targetId)
-	} */
-
-	if (e.target.id.split("-")[0] === "droppable") {
-	}
-	if (!e.target.firstChild) {
-		e.target.append(element);
+	if (!targetContainer.firstChild) {
+		targetContainer.append(element);
 	} else {
 		const conceptItemsArray = Array.from(
 			document.querySelectorAll(".concepts__container__item"),
@@ -338,7 +327,8 @@ const dragDrop = (e) => {
 			return el.contains(element);
 		});
 
-		const childElement = document.getElementById(e.target.id);
+		const childElement = document.getElementById(targetContainer.firstChild.id);
+
 		const parentElement = elements.find((el) => {
 			return el.firstChild === childElement;
 		});
