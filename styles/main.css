@@ -188,11 +188,6 @@ body {
 	background-color: var(--primary-background-color);
 }
 
-.droppable__container--landscape {
-	width: 100%;
-	grid-template-columns: repeat(3, 1fr);
-}
-
 .droppable__container__item {
 	display: flex;
 	flex-direction: column;
