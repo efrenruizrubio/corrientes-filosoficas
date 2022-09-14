@@ -191,6 +191,7 @@ body {
 .droppable__container--landscape {
 	width: 100%;
 	grid-template-columns: repeat(3, 1fr);
+	padding: 0 1.5rem;
 }
 
 .droppable__container__item {

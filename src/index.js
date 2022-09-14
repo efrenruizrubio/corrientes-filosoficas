@@ -124,32 +124,6 @@ const resetButton = document.querySelector(".reset-button");
 
 resetButton.disabled = true;
 
-if (window.innerWidth < 1024) {
-	const alert = {
-		title: "Alerta",
-		text: "Por favor, rota tu dispositivo para una mejor experiencia",
-		background: "#0e1b33",
-		confirmButtonText: "Cerrar",
-		customClass: {
-			title: "alert__title",
-		},
-		padding: "2rem",
-		allowOutsideClick: false,
-		allowEscapeKey: false,
-		allowEnterKey: false,
-		stopKeydownPropagation: false,
-	};
-
-	if (screen.orientation.type.split("-")[0] === "landscape") {
-		Swal.fire(alert);
-	}
-	window.addEventListener("resize", () => {
-		if (screen.orientation.type.split("-")[0] === "landscape") {
-			Swal.fire(alert);
-		}
-	});
-}
-
 const createElements = () => {
 	movements.forEach((movement, i) => {
 		const itemContainer = document.createElement("div");
@@ -587,6 +561,33 @@ const handleEvents = () => {
 		imagesContainer[i].addEventListener("dragleave", dragLeave);
 		imagesContainer[i].addEventListener("drop", dragDrop);
 	}
+
+	if (window.innerWidth < 1024) {
+		const alert = {
+			title: "Alerta",
+			text: "Por favor, rota tu dispositivo para una mejor experiencia",
+			background: "#0e1b33",
+			confirmButtonText: "Cerrar",
+			customClass: {
+				title: "alert__title",
+			},
+			padding: "2rem",
+			allowOutsideClick: false,
+			allowEscapeKey: false,
+			allowEnterKey: false,
+			stopKeydownPropagation: false,
+		};
+
+		if (screen.orientation.type.split("-")[0] === "landscape") {
+			Swal.fire(alert);
+		}
+		window.screen.orientation.addEventListener("change", () => {
+			if (screen.orientation.type.split("-")[0] === "landscape") {
+				Swal.fire(alert);
+			}
+		});
+	}
+
 	const resetButton = document.querySelector(".reset-button");
 	resetButton.addEventListener("click", reset);
 };
