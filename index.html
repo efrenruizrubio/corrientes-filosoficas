@@ -1,99 +1,104 @@
 <!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/logo-icon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta
-      name="description"
-      content="Descubre el nivel de conocimientos que posees acerca de diferentes corrientes filosóficas, con conceptos, imágenes y definiciones."
-    />
-    <meta name="robots" content="index, follow" />
-    <title>Corrientes Filos&oacute;ficas</title>
-    <link rel="stylesheet" href="./styles/main.css" />
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11" defer></script>
-    <script src="./src/index.js" type="module" defer></script>
-  </head>
-  <body>
-    <header class="header">
-      <img
-        src="./assets/icons/logo.svg"
-        alt="Corrientes filosoficas logo"
-        class="header__logo"
-        width="200"
-        height="41.94"
-      />
-    </header>
-    <main class="main">
-      <h2 class="instructions__title">Instrucciones</h2>
-      <p class="instructions__text" id="instructions__text-desktop">
-        Arrastra y suelta las respuestas en sus contenedores respectivos, al
-        soltar todos los elementos aparecerá un botón en la parte de abajo para
-        comprobar las respuestas.
-      </p>
-      <p class="instructions__text" id="instructions__text-mobile">
-        Mantén presionado y suelta las respuestas en sus contenedores
-        respectivos, al soltar todos los elementos aparecerá un botón en la
-        parte de abajo para comprobar las respuestas.
-      </p>
+	<head>
+		<meta charset="UTF-8" />
+		<link rel="icon" type="image/svg+xml" href="/logo-icon.svg" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta
+			name="description"
+			content="Descubre el nivel de conocimientos que posees acerca de diferentes corrientes filosóficas, con conceptos, imágenes y definiciones."
+		/>
+		<meta name="robots" content="index, follow" />
+		<title>Corrientes Filos&oacute;ficas</title>
+		<link rel="stylesheet" href="./styles/main.css" />
+		<script src="//cdn.jsdelivr.net/npm/sweetalert2@11" defer></script>
+		<script src="./src/movements.js" type="module" defer></script>
+		<script src="./src/index.js" type="module" defer></script>
+	</head>
+	<body>
+		<header class="header">
+			<img
+				src="./assets/icons/logo.svg"
+				alt="Corrientes filosoficas logo"
+				class="header__logo"
+				width="200"
+				height="41.94"
+			/>
+		</header>
+		<main class="main">
+			<h2 class="instructions__title">Instrucciones</h2>
+			<p class="instructions__text" id="instructions__text-desktop">
+				Arrastra y suelta las respuestas en sus contenedores respectivos, al
+				soltar todos los elementos aparecerá un botón en la parte de abajo para
+				comprobar las respuestas.
+			</p>
+			<p class="instructions__text" id="instructions__text-mobile">
+				Mantén presionado y suelta las respuestas en sus contenedores
+				respectivos, al soltar todos los elementos aparecerá un botón en la
+				parte de abajo para comprobar las respuestas.
+			</p>
 
-      <h2 class="section__title">Corrientes</h2>
-      <section class="movements__container" id="movements"></section>
-      <div class="main__sections">
-        <h2 class="section__title" id="concepts__title">Conceptos</h2>
-        <section class="concepts__container" id="concepts"></section>
-        <h2 class="section__title" id="images__title">Im&aacute;genes</h2>
-        <section class="images__container" id="images"></section>
-      </div>
-      <button type="button" class="button reset-button">
-        Reiniciar el juego
-      </button>
-    </main>
-    <footer class="footer">
-      <div class="footer-top">
-        <span class="footer-top__text"
-          >Hecho por
-          <a
-            class="footer-top__name"
-            target="_blank"
-            href="https://efrenruizrubio.github.io"
-            >Efr&eacute;n Ru&iacute;z</a
-          ></span
-        >
-      </div>
-      <div class="footer-bottom">
-        <a href="https://github.com/efrenruizrubio" target="_blank">
-          <img
-            class="footer-bottom__img"
-            src="./assets/icons/github-svgrepo-com.svg"
-            alt="GitHub Logo"
-          />
-        </a>
-        <a href="https://www.facebook.com/efren.ruizrubio.31" target="_blank">
-          <img
-            class="footer-bottom__img"
-            src="./assets/icons/facebook-svgrepo-com.svg"
-            alt="Facebook Logo"
-          />
-        </a>
-        <a
-          href="https://api.whatsapp.com/send?phone=5213322709940"
-          target="_blank"
-        >
-          <img
-            class="footer-bottom__img"
-            src="./assets/icons/whatsapp-svgrepo-com.svg"
-            alt="WhatsApp Logo"
-          />
-        </a>
-        <a href="https://www.linkedin.com/in/efren-ruiz-rubio/" target="_blank">
-          <img
-            class="footer-bottom__img"
-            src="./assets/icons/linkedin-svgrepo-com.svg"
-            alt="LinkedIn Logo"
-          />
-        </a>
-      </div>
-    </footer>
-  </body>
+			<h2 class="section__title" id="movements__title">Corrientes</h2>
+			<section class="movements__container" id="movements"></section>
+			<div class="main__sections">
+				<h2 class="section__title" id="concepts__title">Conceptos</h2>
+				<section class="concepts__container" id="concepts"></section>
+				<h2 class="section__title" id="images__title">Im&aacute;genes</h2>
+				<section class="images__container" id="images"></section>
+				<h2 class="section__title" id="methods__title">M&eacute;todos</h2>
+				<section class="methods__container" id="methods"></section>
+				<h2 class="section__title" id="thesis__title">Tesis</h2>
+				<section class="thesis__container" id="thesis"></section>
+			</div>
+			<button type="button" class="button reset-button">
+				Reiniciar el juego
+			</button>
+		</main>
+		<!-- <footer class="footer">
+			<div class="footer-top">
+				<span class="footer-top__text"
+					>Hecho por
+					<a
+						class="footer-top__name"
+						target="_blank"
+						href="https://efrenruizrubio.github.io"
+						>Efr&eacute;n Ru&iacute;z</a
+					></span
+				>
+			</div>
+			<div class="footer-bottom">
+				<a href="https://github.com/efrenruizrubio" target="_blank">
+					<img
+						class="footer-bottom__img"
+						src="./assets/icons/github-svgrepo-com.svg"
+						alt="GitHub Logo"
+					/>
+				</a>
+				<a href="https://www.facebook.com/efren.ruizrubio.31" target="_blank">
+					<img
+						class="footer-bottom__img"
+						src="./assets/icons/facebook-svgrepo-com.svg"
+						alt="Facebook Logo"
+					/>
+				</a>
+				<a
+					href="https://api.whatsapp.com/send?phone=5213322709940"
+					target="_blank"
+				>
+					<img
+						class="footer-bottom__img"
+						src="./assets/icons/whatsapp-svgrepo-com.svg"
+						alt="WhatsApp Logo"
+					/>
+				</a>
+				<a href="https://www.linkedin.com/in/efren-ruiz-rubio/" target="_blank">
+					<img
+						class="footer-bottom__img"
+						src="./assets/icons/linkedin-svgrepo-com.svg"
+						alt="LinkedIn Logo"
+					/>
+				</a>
+			</div>
+		</footer> -->
+	</body>
 </html>

@@ -82,6 +82,12 @@ body {
 	border-bottom: 1px solid;
 	margin: 1rem auto;
 	padding-bottom: 1rem;
+	cursor: pointer;
+}
+
+.section__title:hover {
+	transition: all 0.2s ease-in-out;
+	color: var(--primary-green-color);
 }
 
 .movements__title {
@@ -99,7 +105,9 @@ body {
 }
 
 .concept__subtitle,
-.image__subtitle {
+.image__subtitle,
+.method__subtitle,
+.thesis__subtitle {
 	width: 100%;
 	text-align: center;
 	padding-bottom: 1rem;
@@ -140,7 +148,9 @@ body {
 	grid-template-columns: repeat(2, 1fr);
 	grid-template-areas:
 		"concept image"
-		"concept-drop image-drop";
+		"concept-drop image-drop"
+		"method thesis"
+		"method-drop thesis-drop";
 	place-items: center;
 	gap: 1rem;
 	padding: 1rem 1rem;
@@ -242,8 +252,11 @@ body {
 .item-invisible {
 	visibility: hidden;
 }
+
 .concepts__container,
-.images__container {
+.images__container,
+.methods__container,
+.thesis__container {
 	width: 100%;
 	min-width: 320px;
 	display: flex;
@@ -252,7 +265,9 @@ body {
 }
 
 .concepts__container__item,
-.images__container__item {
+.images__container__item,
+.methods__container__item,
+.thesis__container__item {
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -261,13 +276,16 @@ body {
 	width: 90%;
 	min-width: 288px;
 	min-height: 140px;
+	max-height: 225px;
 	height: auto;
 	border: 1px solid var(--secondary-border-color);
 	border-radius: 15px;
 }
 
 .concepts__container__item__text,
-.images__container__item__inner-element {
+.images__container__item__inner-element,
+.methods__container__item__text,
+.thesis__container__item__text {
 	display: flex;
 	width: 100%;
 	height: 100%;
@@ -279,12 +297,16 @@ body {
 }
 
 .concepts__container__item__text:hover,
-.images__container__item__inner-element:hover {
+.images__container__item__inner-element:hover,
+.methods__container__item__text:hover,
+.thesis__container__item__text:hover {
 	transform: scale(1.05);
 	transition: all 0.2s;
 }
 
-.concepts__container__item__text {
+.concepts__container__item__text,
+.methods__container__item__text,
+.thesis__container__item__text {
 	text-align: center;
 	padding: 1.5rem;
 }
@@ -292,8 +314,8 @@ body {
 .images__container__item__img {
 	display: inline;
 	z-index: -3;
-	width: 102px;
-	height: calc(102px - 33.66px);
+	width: 200px;
+	height: 200px;
 	background-repeat: no-repeat;
 	background-size: cover;
 }
@@ -341,6 +363,7 @@ body {
 	font-size: 2.4rem !important;
 	color: var(--secondary-grey-color) !important;
 }
+
 .alert__text {
 	font-size: 1.6rem;
 	color: var(--secondary-blue-color) !important;
@@ -391,6 +414,17 @@ body {
 	height: 32px;
 }
 
+@media (prefers-reduced-motion: reduce) {
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.01ms !important;
+		scroll-behavior: auto !important;
+	}
+}
+
 @media screen and (min-width: 768px) {
 	.header {
 		margin-top: 1rem;
@@ -421,7 +455,7 @@ body {
 	}
 
 	.movements__container {
-		grid-template-columns: repeat(2, 1fr);
+		grid-template-columns: repeat(3, 1fr);
 	}
 
 	.main__sections {
@@ -430,17 +464,29 @@ body {
 		grid-auto-rows: max-content;
 		grid-template-areas:
 			"concept-title image-title"
-			"concept-container image-container";
+			"concept-container image-container"
+			"method-title thesis-title"
+			"method-container thesis-container";
+	}
+
+	#concepts__title,
+	#images__title,
+	#methods__title,
+	#thesis__title {
+		place-self: center;
 	}
 
 	#concepts__title {
-		place-self: center;
 		grid-area: concept-title;
 	}
-
 	#images__title {
-		place-self: center;
 		grid-area: image-title;
+	}
+	#methods__title {
+		grid-area: method-title;
+	}
+	#thesis__title {
+		grid-area: thesis-title;
 	}
 
 	.concepts__container {
@@ -449,6 +495,14 @@ body {
 
 	.images__container {
 		grid-area: image-container;
+	}
+
+	.methods__container {
+		grid-area: method-container;
+	}
+
+	.thesis__container {
+		grid-area: thesis-container;
 	}
 }
 
@@ -465,10 +519,6 @@ body {
 		width: 50%;
 	}
 
-	.movements__container {
-		grid-template-columns: repeat(3, 1fr);
-	}
-
 	.main__sections {
 		display: flex;
 		flex-direction: column;
@@ -476,19 +526,26 @@ body {
 	}
 
 	#concepts__title,
-	#images__title {
+	#images__title,
+	#methods__title,
+	#thesis__title {
 		width: 96.5%;
 	}
 
 	.concepts__container,
-	.images__container {
+	.images__container,
+	.methods__container,
+	.thesis__container,
+	.movements__container {
 		display: grid;
-		grid-template-columns: repeat(3, 1fr);
+		grid-template-columns: repeat(4, 1fr);
 		place-items: center;
 		margin-bottom: 1rem;
 	}
 
-	.concepts__container__item__text {
+	.concepts__container__item__text,
+	.methods__container__item__text,
+	.thesis__container__item__text {
 		font-size: 1.7rem;
 	}
 
@@ -513,4 +570,8 @@ body {
 	#instructions__text-desktop {
 		font-size: 2rem;
 	}
+}
+
+.section--hidden {
+	display: none;
 }
