@@ -276,7 +276,7 @@ body {
 	width: 90%;
 	min-width: 288px;
 	min-height: 140px;
-	max-height: 225px;
+	/* max-height: 225px; */
 	height: auto;
 	border: 1px solid var(--secondary-border-color);
 	border-radius: 15px;
