@@ -145,8 +145,6 @@ const createElements = () => {
 		thesis.id = shuffledThesis[i].id;
 		thesis.draggable = true;
 
-		console.log(concept.offsetHeight);
-
 		conceptItemContainer.append(concept);
 		conceptsContainer.append(conceptItemContainer);
 		imageItemContainer.append(innerImageItemContainer);
@@ -425,10 +423,22 @@ const submit = () => {
 		document.querySelectorAll(".movements__container__item__drop__image"),
 	);
 
+	const answersMethods = Array.from(
+		document.querySelectorAll(".movements__container__item__drop__method"),
+	);
+
+	const answersThesis = Array.from(
+		document.querySelectorAll(".movements__container__item__drop__thesis"),
+	);
+
 	const submitButton = document.querySelector(".submit-button");
 	submitButton.disabled = true;
 
-	const answersArray = answersConcepts.concat(answersImages);
+	const answersArray = answersConcepts.concat(
+		answersImages,
+		answersMethods,
+		answersThesis,
+	);
 
 	answersArray.forEach((el) => {
 		let id = el.id.split("-").slice(-2).join("-");
