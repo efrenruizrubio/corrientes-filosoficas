@@ -91,7 +91,7 @@ export const movements = [
 	{
 		name: "Escuela de Frankfurt/Teoría crítica",
 		concept: {
-			name: "Su tarea primordial era especificar qué otro modelo de razón erap osible y si estaba capacitada para superar las alienaciones o esquizofrenias -como gustaban de llamarlas- de la sociedad capitalista del momento. Pero esto era una labor no sólo epistemológica, sino que desde la preocupación epistemológica por la ciencia tenía que incidir críticamente en la transformación de la sociedad de aquel momento. Su ideal es la emancipación social del individuo.",
+			name: "Su tarea primordial era especificar qué otro modelo de razón era posible y si estaba capacitada para superar las alienaciones o esquizofrenias -como gustaban de llamarlas- de la sociedad capitalista del momento. Pero esto era una labor no sólo epistemológica, sino que desde la preocupación epistemológica por la ciencia tenía que incidir críticamente en la transformación de la sociedad de aquel momento. Su ideal es la emancipación social del individuo.",
 			id: "concept-4",
 			className: "concepts__container__item__text",
 		},

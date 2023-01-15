@@ -320,6 +320,10 @@ body {
 	background-size: cover;
 }
 
+.dragging {
+	background-color: red;
+}
+
 .button {
 	margin: 1rem;
 	width: 50%;

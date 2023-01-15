@@ -208,6 +208,7 @@ const dragStart = (e) => {
 };
 
 const dragEnd = (e) => {
+	startingDragTarget.classList.add("dragging");
 	e.target.classList.remove("invisible", "hold");
 	e.target.className =
 		e.target.nodeName === "P"
@@ -225,10 +226,14 @@ const dragOver = (e) => {
 		e.preventDefault();
 	}
 	const idTarget = e.target.id.split("-").find((el) => {
-		return el === "concept" || el === "image";
+		return (
+			el === "concept" || el === "image" || el === "method" || el === "thesis"
+		);
 	});
 	const idElement = startingDragTarget.id.split("-").find((el) => {
-		return el === "concept" || el === "image";
+		return (
+			el === "concept" || el === "image" || el === "method" || el === "thesis"
+		);
 	});
 
 	if (e.target.firstChild !== startingDragTarget && idTarget === idElement) {
