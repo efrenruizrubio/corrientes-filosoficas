@@ -70,7 +70,7 @@ const createElements = () => {
 		thesisSubtitle.classList.add("movements__subtitle", "thesis__subtitle");
 
 		conceptSubtitle.innerText = "Definición";
-		imageSubtitle.innerText = "Imagen";
+		imageSubtitle.innerText = "Representantes";
 		methodSubtitle.innerText = "Método";
 		thesisSubtitle.innerText = "Tesis";
 
