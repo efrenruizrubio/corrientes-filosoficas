@@ -210,10 +210,15 @@ const dragStart = (e) => {
 const dragEnd = (e) => {
 	startingDragTarget.classList.add("dragging");
 	e.target.classList.remove("invisible", "hold");
+	const id = e.target.id.split("-")[0];
 	e.target.className =
-		e.target.nodeName === "P"
+		id === "concept"
 			? "concepts__container__item__text"
-			: "images__container__item__inner-element";
+			: id === "image"
+			? "images__container__item__inner-element"
+			: id === "method"
+			? "methods__container__item__text"
+			: "thesis__container__item__text";
 
 	const droppableContainer = document.querySelector(".droppable__container");
 	if (droppableContainer) {
@@ -265,6 +270,8 @@ const dragDrop = (e) => {
 	const element = document.getElementById(data);
 	const conceptId = document.getElementById(`concept-container-${data}`);
 	const imageId = document.getElementById(`image-container-${data}`);
+	const methodId = document.getElementById(`method-container-${data}`);
+	const thesisId = document.getElementById(`thesis-container-${data}`);
 
 	e.target.classList.remove("item-hovered");
 
@@ -286,7 +293,18 @@ const dragDrop = (e) => {
 		const imageItemsArray = Array.from(
 			document.querySelectorAll(".images__container__item"),
 		);
-		const itemContainer = conceptItemsArray.concat(imageItemsArray);
+		const methodItemsArray = Array.from(
+			document.querySelectorAll(".methods__container__item"),
+		);
+		const thesisItemsArray = Array.from(
+			document.querySelectorAll(".thesis__container__item"),
+		);
+
+		const itemContainer = conceptItemsArray.concat(
+			imageItemsArray,
+			methodItemsArray,
+			thesisItemsArray,
+		);
 
 		const isInsideItems = itemContainer.some((el) => {
 			return el.contains(element);
@@ -299,20 +317,26 @@ const dragDrop = (e) => {
 		const parentElement = elements.find((el) => {
 			return el.contains(childElement);
 		});
-
 		if (isInsideItems) {
 			const optionElement = document.createElement("div");
 			optionElement.append(childElement);
-
-			if (element.nodeName === "P") {
+			const id = element.id.split("-")[0];
+			if (id === "concept") {
 				optionElement.classList.add("concepts__container__item");
 				optionElement.id = `concept-container-${childElement.id}`;
-
 				conceptsContainer.insertAdjacentElement("afterbegin", optionElement);
-			} else {
+			} else if (id === "image") {
 				optionElement.classList.add("images__container__item");
 				optionElement.id = `image-container-${childElement.id}`;
 				imagesContainer.insertAdjacentElement("afterbegin", optionElement);
+			} else if (id === "method") {
+				optionElement.classList.add("methods__container__item");
+				optionElement.id = `method-container-${childElement.id}`;
+				methodsContainer.insertAdjacentElement("afterbegin", optionElement);
+			} else if (id === "thesis") {
+				optionElement.classList.add("thesis__container__item");
+				optionElement.id = `thesis-container-${childElement.id}`;
+				thesisContainer.insertAdjacentElement("afterbegin", optionElement);
 			}
 
 			parentElement.append(element);
@@ -321,7 +345,7 @@ const dragDrop = (e) => {
 				return el.contains(element);
 			});
 
-			if (element.id.split("-")[0] === "concept") {
+			if (element.id.split("-")[0] !== "image") {
 				parentOfDragged.append(childElement);
 				parentElement.append(element);
 			} else {
@@ -349,6 +373,10 @@ const dragDrop = (e) => {
 		? conceptsContainer.removeChild(conceptId)
 		: imageId
 		? imagesContainer.removeChild(imageId)
+		: methodId
+		? methodsContainer.removeChild(methodId)
+		: thesisId
+		? thesisContainer.removeChild(thesisId)
 		: null;
 
 	const isFull = elements.every((element) => {
@@ -371,6 +399,24 @@ const dragDrop = (e) => {
 
 			if (itemsContainer.contains(imagesTitle)) {
 				itemsContainer.removeChild(imagesTitle);
+			}
+		}
+
+		if (!methodsContainer.firstElementChild) {
+			const methodsTitle = document.getElementById("methods__title");
+			const itemsContainer = document.querySelector(".main__sections");
+
+			if (itemsContainer.contains(methodsTitle)) {
+				itemsContainer.removeChild(methodsTitle);
+			}
+		}
+
+		if (!thesisContainer.firstElementChild) {
+			const thesisTitle = document.getElementById("thesis__title");
+			const itemsContainer = document.querySelector(".main__sections");
+
+			if (itemsContainer.contains(thesisTitle)) {
+				itemsContainer.removeChild(thesisTitle);
 			}
 		}
 	}
